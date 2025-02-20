@@ -1,6 +1,6 @@
 # Privacy Policy
 
-This page explains how we handle your data when you visit our GitHub project page.
+This page explains how we handle your data when you visit our Website.
 
 ## 1. Data Collection and Use
 
