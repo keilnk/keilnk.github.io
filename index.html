@@ -44,6 +44,14 @@
 <body>
     <header>
         <h1>My Project</h1>
+        <!-- Add buttons for search, home, and privacy policy -->
+        <nav>
+            <ul>
+                <li><button onclick="window.location.href='index.html'">Home</button></li>
+                <li><button onclick="searchFunction()">Search</button></li>
+                <li><button onclick="window.location.href='privacy-policy.html'">Privacy Policy</button></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="content">
@@ -60,5 +68,15 @@
             <p>Click here to reach the installation button!</p>
         </div>
     </div>
+
+    <script>
+        // Function to handle the search button (can be customized later)
+        function searchFunction() {
+            let searchQuery = prompt("Enter search query:");
+            if (searchQuery) {
+                window.location.href = `search-results.html?q=${encodeURIComponent(searchQuery)}`;
+            }
+        }
+    </script>
 </body>
 </html>
