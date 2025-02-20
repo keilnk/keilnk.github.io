@@ -1,86 +1,93 @@
-/* Basic styling for the page */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
     background-color: #000;
     color: #fff;
-    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* Header styling */
 header {
-    background-color: #333;
+    text-align: center;
     padding: 20px;
+    background-color: #333;
 }
 
 h1 {
-    font-size: 3em;
     margin: 0;
+    font-size: 3rem;
 }
 
-/* Content styling */
-.content {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 50px;
-    flex-wrap: wrap;
+nav ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.block {
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li button {
     background-color: #444;
-    width: 250px;
-    padding: 20px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 5px;
 }
 
-.block h2 {
-    font-size: 1.5em;
-    margin: 0;
-}
-
-.block p {
-    font-size: 1em;
-}
-
-.block:hover {
+nav ul li button:hover {
     background-color: #555;
 }
 
-/* Adblock overlay */
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.block {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.block:hover {
+    background-color: #444;
+}
+
 .adblock-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
     display: none;
     justify-content: center;
     align-items: center;
-    color: #fff;
-    font-size: 1.2em;
+    z-index: 9999;
 }
 
 .adblock-modal {
-    background-color: #222;
-    padding: 30px;
-    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
     text-align: center;
 }
 
-#adblock-modal button {
-    background-color: #e74c3c;
+.adblock-modal button {
+    background-color: #444;
+    color: white;
     border: none;
     padding: 10px 20px;
-    color: white;
-    font-size: 1.1em;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 20px;
 }
 
-#adblock-modal button:hover {
-    background-color: #c0392b;
+.adblock-modal button:hover {
+    background-color: #555;
 }
