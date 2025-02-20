@@ -7,3 +7,17 @@ body {
 h1 {
   text-align: center;
 }
+
+/* style.css */
+body {
+  background-image: url('path-to-your-image.jpg'); /* Path to your image */
+  background-size: cover; /* Make the image cover the entire background */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+
+/* style.css */
+body {
+  background-color: lightblue; /* Sets the background color to light blue */
+}
