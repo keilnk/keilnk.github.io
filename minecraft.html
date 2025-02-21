@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Page</title>
+    <style>
+        body {
+            background-image: url('minecraft-logo.png'); /* Add the path to your Minecraft logo */
+            background-size: cover;
+            text-align: center;
+            color: white;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Minecraft Page</h1>
+    <button class="button" onclick="checkSubscription()">Click me</button>
+    <p id="message" class="hidden">Please subscribe to the channel!</p>
 
+    <script>
+        function checkSubscription() {
+            // Simulated subscription check (replace with actual logic)
+            const isSubscribed = false; // Change this based on actual subscription status
+
+            if (isSubscribed) {
+                window.location.href = 'https://your-redirect-url.com'; // The URL to redirect to
+            } else {
+                document.getElementById('message').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
