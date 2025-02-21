@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEILNK Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: black;  /* Dark black background */
+            color: #FFD700;  /* Yellow Gold text color */
+        }
+        h1 {
+            color: #FFD700;  /* Gold color for the header */
+        }
+        p {
+            color: #FFD700;  /* Gold text for paragraph */
+        }
+        .category-block {
+            padding: 20px;
+            margin: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background-color: #333;  /* Dark background for the blocks */
+            color: #FFD700;  /* Yellow Gold text color */
+            border: 2px solid #FFD700;  /* Gold border */
+            transition: background-color 0.3s;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+        .category-block:hover {
+            background-color: #444;  /* Slightly lighter dark background on hover */
+        }
+        #message {
+            color: red;
+            margin-top: 20px;
+            display: none;
+        }
+        .social-logo-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .social-logo-container img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        /* Search Styles */
+        #search-container {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        #search-input {
+            padding: 10px;
+            font-size: 18px;
+            width: 200px;
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            background-color: #333;
+        }
+        #search-button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            font-size: 18px;
+            background-color: #333;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            cursor: pointer;
+        }
+        #search-button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to KEILNK</h1>
+    <p>Please select a category to proceed:</p>
+
+    <!-- Search Section -->
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search content..." oninput="searchContent()">
+        <button id="search-button" onclick="searchContent()">Search</button>
+    </div>
+
+    <!-- Categories Section -->
+    <div id="categories-container">
+        <div class="category-block" onclick="redirectToPage('games')">
+            Games
+        </div>
+        <div class="category-block" onclick="redirectToPage('scripts')">
+            Scripts
+        </div>
+        <div class="category-block" onclick="redirectToPage('minecraft')">
+            Minecraft
+        </div>
+    </div>
+
+ <!-- Social media logos -->
+ <div class="social-logo-container">
+    <a href="https://www.youtube.com/@keilnk" target="_blank">
+        <img src="../Images/Logos/Youtube.png" alt="YouTube">
+    </a>
+    <a href="https://discord.gg/zEaFQHGTwg" target="_blank">
+        <img src="../Images/Logos/Discord.png" alt="Discord">
+    </a>
+</div>
+
+
+    <script>
+        // Function to redirect to different pages
+        function redirectToPage(page) {
+            if (page === 'games') {
+                window.location.href = "Pages/games.html";
+            } else if (page === 'scripts') {
+                window.location.href = "Pages/scripts.html";
+            } else if (page === 'minecraft') {
+                window.location.href = "Pages/minecraft.html";
+            }
+        }
+
+        // Search functionality: search through the page content
+        function searchContent() {
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            const pageContent = document.body.innerText.toLowerCase(); // All text on the page
+            
+            if (searchQuery) {
+                if (pageContent.includes(searchQuery)) {
+                    alert("Search term found on this page!");
+                } else {
+                    alert("No results found.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
