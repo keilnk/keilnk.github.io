@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft - KEILNK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: black;
+            color: #FFD700;
+        }
+        h1, h2 {
+            color: #FFD700;
+        }
+        .social-logo-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .social-logo-container img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        #home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #FFD700;
+            color: black;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #search-container {
+            margin-top: 30px;
+        }
+        #search-input {
+            padding: 10px;
+            font-size: 18px;
+            width: 300px;
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            background-color: #333;
+        }
+        .category-block {
+            padding: 20px;
+            margin: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background-color: #333;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            display: inline-block;
+        }
+        .category-block:hover {
+            background-color: #444;
+        }
+        .button-container {
+            margin-top: 30px;
+        }
+        .button-container .category-block {
+            width: 300px;  /* Make all buttons the same size */
+            height: 150px; /* Set the height for the button block */
+            margin: 10px auto;
+            background-size: cover;  /* Make image cover the whole block */
+            color: transparent;  /* Make text transparent so the background image is visible */
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            border: none;
+        }
+        .button-container .category-block p {
+            position: absolute;
+            color: #FFD700;
+            font-size: 24px;
+        }
+        .category-block button {
+            display: none;  /* Hide the original button */
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Button -->
+    <button id="home-button" onclick="window.location.href='../index.html';">Home</button>
+
+    <h1>Welcome to KEILNK</h1>
+    <h2>Minecraft</h2>
+
+    <p>Explore the best Minecraft resources and texture packs!</p>
+
+    <!-- Search Section -->
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search content..." oninput="searchContent()">
+    </div>
+
+    <!-- 10 buttons as content blocks -->
+    <div class="button-container">
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="FatCat16x" data-link="https://link-target.net/1298405/mcpe-texturepack" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>FatCat16x</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 2" data-link="https://example.com/2" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 2</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 3" data-link="https://example.com/3" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 3</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 4" data-link="https://example.com/4" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 4</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 5" data-link="https://example.com/5" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 5</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 6" data-link="https://example.com/6" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 6</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 7" data-link="https://example.com/7" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 7</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 8" data-link="https://example.com/8" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 8</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 9" data-link="https://example.com/9" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 9</p>
+        </div>
+        <div class="category-block" style="background-image: url('../Images/Texturepacks/FatCat16x.png');" data-button="Button 10" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
+            <p>Button 10</p>
+        </div>
+    </div>
+
+    <!-- Social media logos -->
+    <div class="social-logo-container">
+        <a href="https://www.youtube.com/@keilnk" target="_blank">
+            <img src="../Images/Logos/Youtube.png" alt="YouTube">
+        </a>
+        <a href="https://discord.gg/zEaFQHGTwg" target="_blank">
+            <img src="../Images/Logos/Discord.png" alt="Discord">
+        </a>
+    </div>
+
+    <script>
+        // Function to filter content based on the search input
+        function searchContent() {
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            const contentItems = document.querySelectorAll('.category-block');  // Content block for Minecraft
+
+            contentItems.forEach(function(item) {
+                const itemText = item.querySelector('p').innerText.toLowerCase();  // Get the text of the button
+                if (itemText.includes(searchQuery)) {
+                    item.style.display = 'inline-block';  // Show the item if it matches
+                } else {
+                    item.style.display = 'none';  // Hide the item if it doesn't match
+                }
+            });
+        }
+    </script>
+</body>
+</html>
