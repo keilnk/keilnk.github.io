@@ -12,25 +12,27 @@
             background-color: black;  /* Dark black background */
             color: #FFD700;  /* Yellow Gold text color */
         }
-        button {
-            padding: 10px 20px;
+        h1 {
+            color: #FFD700;  /* Gold color for the header */
+        }
+        p {
+            color: #FFD700;  /* Gold text for paragraph */
+        }
+        .category-block {
+            padding: 20px;
             margin: 20px;
-            font-size: 18px;
+            font-size: 24px;
             cursor: pointer;
-            background-color: #333;  /* Dark button background */
-            color: #FFD700;  /* Yellow Gold text color on buttons */
+            background-color: #333;  /* Dark background for the blocks */
+            color: #FFD700;  /* Yellow Gold text color */
             border: 2px solid #FFD700;  /* Gold border */
             transition: background-color 0.3s;
             display: inline-block;
+            width: 200px;
+            text-align: center;
         }
-        button:hover {
+        .category-block:hover {
             background-color: #444;  /* Slightly lighter dark background on hover */
-        }
-        button img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            vertical-align: middle;
         }
         #message {
             color: red;
@@ -49,8 +51,11 @@
             height: 50px;
             cursor: pointer;
         }
+        /* Search Styles */
         #search-container {
             margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
         }
         #search-input {
             padding: 10px;
@@ -60,124 +65,78 @@
             color: #FFD700;
             background-color: #333;
         }
+        #search-button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            font-size: 18px;
+            background-color: #333;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            cursor: pointer;
+        }
+        #search-button:hover {
+            background-color: #444;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to KEILNK</h1>
-    <p>Please click a button to proceed. You will be redirected if you're subscribed to the YouTube channel.</p>
+    <p>Please select a category to proceed:</p>
 
     <!-- Search Section -->
     <div id="search-container">
-        <input type="text" id="search-input" placeholder="Search buttons..." oninput="searchButtons()">
+        <input type="text" id="search-input" placeholder="Search content..." oninput="searchContent()">
+        <button id="search-button" onclick="searchContent()">Search</button>
     </div>
-    
-    <!-- Buttons -->
-    <div id="buttons-container">
-        <!-- 60 buttons with unique links and images -->
-        <button id="button1" data-link="https://link-target.net/1298405/mcpe-texturepack">
-            <img src="https://cdn.discordapp.com/attachments/1172856974132645888/1342418219717103706/pack_icon.png?ex=67b98fe4&is=67b83e64&hm=1f205ac261346238ccbf284ed483e3652e7482cf9adfd448154591dfbb95f4c3&" alt="FatCat16X">FatCat16X
-        </button>
-        <button id="button2" data-link="https://example.com/link2">
-            <img src="https://via.placeholder.com/50" alt="Link 2">Go to Link 2
-        </button>
-        <button id="button3" data-link="https://example.com/link3">
-            <img src="https://via.placeholder.com/50" alt="Link 3">Go to Link 3
-        </button>
-        <button id="button4" data-link="https://example.com/link4">
-            <img src="https://via.placeholder.com/50" alt="Link 4">Go to Link 4
-        </button>
-        <button id="button5" data-link="https://example.com/link5">
-            <img src="https://via.placeholder.com/50" alt="Link 5">Go to Link 5
-        </button>
-        <button id="button6" data-link="https://example.com/link6">
-            <img src="https://via.placeholder.com/50" alt="Link 6">Go to Link 6
-        </button>
-        <button id="button7" data-link="https://example.com/link7">
-            <img src="https://via.placeholder.com/50" alt="Link 7">Go to Link 7
-        </button>
-        <button id="button8" data-link="https://example.com/link8">
-            <img src="https://via.placeholder.com/50" alt="Link 8">Go to Link 8
-        </button>
-        <button id="button9" data-link="https://example.com/link9">
-            <img src="https://via.placeholder.com/50" alt="Link 9">Go to Link 9
-        </button>
-        <button id="button10" data-link="https://example.com/link10">
-            <img src="https://via.placeholder.com/50" alt="Link 10">Go to Link 10
-        </button>
-        <!-- Add more buttons as needed -->
-    </div>
-    
-    <div id="message">You need to subscribe to the KEILNK YouTube channel first!</div>
 
-    <!-- Social media logos (YouTube & Discord) -->
-    <div class="social-logo-container">
-        <!-- YouTube Logo -->
-        <a href="https://www.youtube.com/@keilnk" target="_blank">
-            <img src="https://cdn.discordapp.com/attachments/1172856974132645888/1342407505241706506/Youtube_logo.png?ex=67b985e9&is=67b83469&hm=5b164793e8548652f38793a5fb984104b81890fb10c58178718c1fd55a841f5a&" alt="YouTube Logo">
-        </a>
-        <!-- Discord Logo -->
-        <a href="https://discord.gg/YOUR_INVITE_LINK" target="_blank">
-            <img src="https://cdn.discordapp.com/attachments/1172856974132645888/1342403863591911465/vecteezy_discord-logo-icon-editorial-vector_6892625.jpg?ex=67b98285&is=67b83105&hm=a8fd1b850631d32f13e95fea13b138fd0c3b22f878da029665f8883cbe791947&" alt="Discord Logo">
-        </a>
+    <!-- Categories Section -->
+    <div id="categories-container">
+        <div class="category-block" onclick="redirectToPage('games')">
+            Games
+        </div>
+        <div class="category-block" onclick="redirectToPage('scripts')">
+            Scripts
+        </div>
+        <div class="category-block" onclick="redirectToPage('minecraft')">
+            Minecraft
+        </div>
     </div>
+
+ <!-- Social media logos -->
+ <div class="social-logo-container">
+    <a href="https://www.youtube.com/@keilnk" target="_blank">
+        <img src="../Images/Logos/Youtube.png" alt="YouTube">
+    </a>
+    <a href="https://discord.gg/zEaFQHGTwg" target="_blank">
+        <img src="../Images/Logos/Discord.png" alt="Discord">
+    </a>
+</div>
+
 
     <script>
-        // Mock check for subscription
-        function checkSubscription(callback) {
-            // Simulate check (for testing purposes, set to `true` to allow redirect if subscribed)
-            const isSubscribed = true;  // Set this to `true` if you want to simulate being subscribed
-
-            if (isSubscribed) {
-                callback(true);
-            } else {
-                callback(false);
+        // Function to redirect to different pages
+        function redirectToPage(page) {
+            if (page === 'games') {
+                window.location.href = "Pages/games.html";
+            } else if (page === 'scripts') {
+                window.location.href = "Pages/scripts.html";
+            } else if (page === 'minecraft') {
+                window.location.href = "Pages/minecraft.html";
             }
         }
 
-        // Redirect to the YouTube channel if not subscribed
-        function redirectToYouTubeChannel() {
-            window.location.href = "https://www.youtube.com/@keilnk"; // Redirect to YouTube channel
-        }
-
-        // Redirect to the Discord server
-        function redirectToDiscord() {
-            window.location.href = "https://discord.gg/YOUR_INVITE_LINK";  // Replace with your actual Discord invite link
-        }
-
-        // Redirection logic for buttons
-        function redirectToLink(url) {
-            checkSubscription(function(isSubscribed) {
-                if (isSubscribed) {
-                    window.location.href = url; // Redirect if subscribed
-                } else {
-                    document.getElementById("message").style.display = "block";
-                    redirectToYouTubeChannel();  // Redirect to YouTube channel
-                }
-            });
-        }
-
-        // Add event listeners to buttons with individual URLs
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                const link = button.getAttribute('data-link');
-                redirectToLink(link);  // Use the link from the data attribute
-            });
-        });
-
-        // Search functionality to filter buttons based on input
-        function searchButtons() {
+        // Search functionality: search through the page content
+        function searchContent() {
             const searchQuery = document.getElementById('search-input').value.toLowerCase();
-            const buttons = document.querySelectorAll('button');
+            const pageContent = document.body.innerText.toLowerCase(); // All text on the page
             
-            buttons.forEach(function(button) {
-                const buttonText = button.innerText.toLowerCase();
-                if (buttonText.includes(searchQuery)) {
-                    button.style.display = 'inline-block';  // Show the button if it matches
+            if (searchQuery) {
+                if (pageContent.includes(searchQuery)) {
+                    alert("Search term found on this page!");
                 } else {
-                    button.style.display = 'none';  // Hide the button if it doesn't match
+                    alert("No results found.");
                 }
-            });
+            }
         }
     </script>
 </body>
