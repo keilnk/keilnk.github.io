@@ -3,81 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEILNK</title>
-    <link rel="stylesheet" href="style.css">
-    <script>
-        // Adblock detector
-        (function() {
-            const overlay = document.createElement('div');
-            overlay.classList.add('adblock-overlay');
-            overlay.innerHTML = `
-                <div class="adblock-modal">
-                    <h2>⚠️ Adblocker detected! ⚠️</h2>
-                    <p>Please disable your adblocker to proceed.</p>
-                    <button id="closeAdblockModal">Close</button>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-
-            // Checks if Adblock is active
-            function detectAdBlock() {
-                const testUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-                const testImage = new Image();
-                testImage.onload = function() {
-                    overlay.style.display = 'none';
-                };
-                testImage.onerror = function() {
-                    overlay.style.display = 'block';
-                };
-                testImage.src = testUrl;
-            }
-
-            detectAdBlock();
-
-            // Close button
-            document.getElementById('closeAdblockModal').addEventListener('click', () => {
-                overlay.style.display = 'none';
-            });
-        })();
-    </script>
+    <title>KEILNK Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: black;  /* Dark black background */
+            color: #FFD700;  /* Yellow Gold text color */
+        }
+        button {
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #333;  /* Dark button background */
+            color: #FFD700;  /* Yellow Gold text color on buttons */
+            border: 2px solid #FFD700;  /* Gold border */
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        button:hover {
+            background-color: #444;  /* Slightly lighter dark background on hover */
+        }
+        button img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        #message {
+            color: red;
+            margin-top: 20px;
+            display: none;
+        }
+        .social-logo-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .social-logo-container img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        #search-container {
+            margin-bottom: 30px;
+        }
+        #search-input {
+            padding: 10px;
+            font-size: 18px;
+            width: 200px;
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            background-color: #333;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>KEILNK</h1>
-        <!-- Add buttons for search, home, and privacy policy -->
-        <nav>
-            <ul>
-                <li><button onclick="window.location.href='index.html'">Home</button></li>
-                <li><button onclick="searchFunction()">Search</button></li>
-                <li><button onclick="window.location.href='privacy-policy.md'">Privacy Policy</button></li>
-            </ul>
-        </nav>
-    </header>
+    <h1>Welcome to KEILNK</h1>
+    <p>Please click a button to proceed. You will be redirected if you're subscribed to the YouTube channel.</p>
 
-<div class="block" onclick="window.location.href='minecraft.html'">
-    <h2>Minecraft</h2>
-    <img src="path/to/minecraft-image.png" alt="Minecraft Image" style="width:50px;height:50px;">
-    <p>Click here to get started!</p>
-</div>
-<div class="block" onclick="window.location.href='games.html'">
-    <h2>Games</h2>
-    <img src="path/to/games-image.png" alt="Games Image" style="width:50px;height:50px;">
-    <p>Click here for more information!</p>
-</div>
-<div class="block" onclick="window.location.href='scripts.html'">
-    <h2>Scripts(Projects)</h2>
-    <img src="path/to/scripts-image.png" alt="Scripts Image" style="width:50px;height:50px;">
-    <p>Click here to reach the installation button!</p>
-</div>
+    <!-- Search Section -->
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search buttons..." oninput="searchButtons()">
+    </div>
+    
+    <!-- Buttons -->
+    <div id="buttons-container">
+        <!-- 60 buttons with unique links and images -->
+        <button id="button1" data-link="https://example.com/link1">
+            <img src="https://via.placeholder.com/50" alt="Link 1">Go to Link 1
+        </button>
+        <button id="button2" data-link="https://example.com/link2">
+            <img src="https://via.placeholder.com/50" alt="Link 2">Go to Link 2
+        </button>
+        <button id="button3" data-link="https://example.com/link3">
+            <img src="https://via.placeholder.com/50" alt="Link 3">Go to Link 3
+        </button>
+        <button id="button4" data-link="https://example.com/link4">
+            <img src="https://via.placeholder.com/50" alt="Link 4">Go to Link 4
+        </button>
+        <button id="button5" data-link="https://example.com/link5">
+            <img src="https://via.placeholder.com/50" alt="Link 5">Go to Link 5
+        </button>
+        <button id="button6" data-link="https://example.com/link6">
+            <img src="https://via.placeholder.com/50" alt="Link 6">Go to Link 6
+        </button>
+        <button id="button7" data-link="https://example.com/link7">
+            <img src="https://via.placeholder.com/50" alt="Link 7">Go to Link 7
+        </button>
+        <button id="button8" data-link="https://example.com/link8">
+            <img src="https://via.placeholder.com/50" alt="Link 8">Go to Link 8
+        </button>
+        <button id="button9" data-link="https://example.com/link9">
+            <img src="https://via.placeholder.com/50" alt="Link 9">Go to Link 9
+        </button>
+        <button id="button10" data-link="https://example.com/link10">
+            <img src="https://via.placeholder.com/50" alt="Link 10">Go to Link 10
+        </button>
+        <!-- Add more buttons as needed -->
+    </div>
+    
+    <div id="message">You need to subscribe to the KEILNK YouTube channel first!</div>
+
+    <!-- Social media logos (YouTube & Discord) -->
+    <div class="social-logo-container">
+        <!-- YouTube Logo -->
+        <a href="https://www.youtube.com/@keilnk" target="_blank">
+            <img src="https://cdn.discordapp.com/attachments/1172856974132645888/1342407505241706506/Youtube_logo.png?ex=67b985e9&is=67b83469&hm=5b164793e8548652f38793a5fb984104b81890fb10c58178718c1fd55a841f5a&" alt="YouTube Logo">
+        </a>
+        <!-- Discord Logo -->
+        <a href="https://discord.gg/YOUR_INVITE_LINK" target="_blank">
+            <img src="https://cdn.discordapp.com/attachments/1172856974132645888/1342403863591911465/vecteezy_discord-logo-icon-editorial-vector_6892625.jpg?ex=67b98285&is=67b83105&hm=a8fd1b850631d32f13e95fea13b138fd0c3b22f878da029665f8883cbe791947&" alt="Discord Logo">
+        </a>
     </div>
 
     <script>
-        // Function to handle the search button (can be customized later)
-        function searchFunction() {
-            let searchQuery = prompt("Enter search query:");
-            if (searchQuery) {
-                window.location.href = `search-results.html?q=${encodeURIComponent(searchQuery)}`;
+        // Mock check for subscription
+        function checkSubscription(callback) {
+            // Simulate check (for testing purposes, set to `true` to allow redirect if subscribed)
+            const isSubscribed = true;  // Set this to `true` if you want to simulate being subscribed
+
+            if (isSubscribed) {
+                callback(true);
+            } else {
+                callback(false);
             }
+        }
+
+        // Redirect to the YouTube channel if not subscribed
+        function redirectToYouTubeChannel() {
+            window.location.href = "https://www.youtube.com/@keilnk"; // Redirect to YouTube channel
+        }
+
+        // Redirect to the Discord server
+        function redirectToDiscord() {
+            window.location.href = "https://discord.gg/YOUR_INVITE_LINK";  // Replace with your actual Discord invite link
+        }
+
+        // Redirection logic for buttons
+        function redirectToLink(url) {
+            checkSubscription(function(isSubscribed) {
+                if (isSubscribed) {
+                    window.location.href = url; // Redirect if subscribed
+                } else {
+                    document.getElementById("message").style.display = "block";
+                    redirectToYouTubeChannel();  // Redirect to YouTube channel
+                }
+            });
+        }
+
+        // Add event listeners to buttons with individual URLs
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const link = button.getAttribute('data-link');
+                redirectToLink(link);  // Use the link from the data attribute
+            });
+        });
+
+        // Search functionality to filter buttons based on input
+        function searchButtons() {
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            const buttons = document.querySelectorAll('button');
+            
+            buttons.forEach(function(button) {
+                const buttonText = button.innerText.toLowerCase();
+                if (buttonText.includes(searchQuery)) {
+                    button.style.display = 'inline-block';  // Show the button if it matches
+                } else {
+                    button.style.display = 'none';  // Hide the button if it doesn't match
+                }
+            });
         }
     </script>
 </body>
