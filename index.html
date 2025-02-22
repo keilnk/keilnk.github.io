@@ -9,30 +9,31 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 50px;
-            background-color: black;  /* Dark black background */
-            color: #FFD700;  /* Yellow Gold text color */
+            background: url('Images/Background.gif') no-repeat center center fixed; /* Relative path to the GIF */
+            background-size: cover; /* Make the GIF cover the entire screen */
+            color: #FFD700; /* Yellow Gold text color */
         }
         h1 {
-            color: #FFD700;  /* Gold color for the header */
+            color: #FFD700; /* Gold color for the header */
         }
         p {
-            color: #FFD700;  /* Gold text for paragraph */
+            color: #FFD700; /* Gold text for paragraph */
         }
         .category-block {
             padding: 20px;
             margin: 20px;
             font-size: 24px;
             cursor: pointer;
-            background-color: #333;  /* Dark background for the blocks */
-            color: #FFD700;  /* Yellow Gold text color */
-            border: 2px solid #FFD700;  /* Gold border */
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background for blocks */
+            color: #FFD700; /* Yellow Gold text color */
+            border: 2px solid #FFD700; /* Gold border */
             transition: background-color 0.3s;
             display: inline-block;
             width: 200px;
             text-align: center;
         }
         .category-block:hover {
-            background-color: #444;  /* Slightly lighter dark background on hover */
+            background-color: rgba(68, 68, 68, 0.8); /* Slightly lighter dark background on hover */
         }
         #message {
             color: red;
@@ -63,19 +64,19 @@
             width: 200px;
             border: 2px solid #FFD700;
             color: #FFD700;
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background for input */
         }
         #search-button {
             padding: 10px 20px;
             margin-left: 10px;
             font-size: 18px;
-            background-color: #333;
-            color: #FFD700;
-            border: 2px solid #FFD700;
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background for button */
+            color: #FFD700; /* Gold text color */
+            border: 2px solid #FFD700; /* Gold border */
             cursor: pointer;
         }
         #search-button:hover {
-            background-color: #444;
+            background-color: rgba(68, 68, 68, 0.8); /* Slightly lighter dark background on hover */
         }
     </style>
 </head>
@@ -102,16 +103,15 @@
         </div>
     </div>
 
- <!-- Social media logos -->
- <div class="social-logo-container">
-    <a href="https://www.youtube.com/@keilnk" target="_blank">
-        <img src="Images/Logos/Youtube.png" alt="YouTube">
-    </a>
-    <a href="https://discord.gg/zEaFQHGTwg" target="_blank">
-        <img src="Images/Logos/Discord.png" alt="Discord">
-    </a>
-</div>
-
+    <!-- Social media logos -->
+    <div class="social-logo-container">
+       <a href="https://www.youtube.com/@keilnk" target="_blank">
+           <img src="Images/Logos/Youtube.png" alt="YouTube">
+       </a>
+       <a href="https://discord.gg/zEaFQHGTwg" target="_blank">
+           <img src="Images/Logos/Discord.png" alt="Discord">
+       </a>
+   </div>
 
     <script>
         // Function to redirect to different pages
@@ -125,7 +125,7 @@
             }
         }
 
-        // Search functionality: search through the page content
+        // Search functionality
         function searchContent() {
             const searchQuery = document.getElementById('search-input').value.toLowerCase();
             const pageContent = document.body.innerText.toLowerCase(); // All text on the page
