@@ -8,75 +8,95 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px;
-            background: url('Images/Background.gif') no-repeat center center fixed; /* Relative path to the GIF */
-            background-size: cover; /* Make the GIF cover the entire screen */
-            color: #FFD700; /* Yellow Gold text color */
+            margin: 0;
+            padding: 0;
+            background: url('Images/Background.gif') no-repeat center center fixed; /* Background image */
+            background-size: cover; /* Make the background cover the entire screen */
+            color: #00FFFF; /* Cyan text color */
         }
+
         h1 {
-            color: #FFD700; /* Gold color for the header */
+            color: #00FFFF; /* Cyan color for the header */
+            font-size: 3rem; /* Larger font size for emphasis */
+            text-shadow: 0 0 10px #00FFFF, 0 0 20px #007FFF; /* Glowing effect */
         }
+
         p {
-            color: #FFD700; /* Gold text for paragraph */
+            color: #A9F5F2; /* Light cyan text for paragraph */
+            font-size: 1.2rem;
         }
+
         .category-block {
             padding: 20px;
             margin: 20px;
-            font-size: 24px;
+            font-size: 1.2rem;
             cursor: pointer;
-            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background for blocks */
-            color: #FFD700; /* Yellow Gold text color */
-            border: 2px solid #FFD700; /* Gold border */
-            transition: background-color 0.3s;
+            background-color: rgba(0, 0, 50, 0.7); /* Semi-transparent dark blue background */
+            color: #00FFFF; /* Cyan text color */
+            border: 2px solid #007FFF; /* Light blue border */
+            border-radius: 10px; /* Rounded corners for a modern look */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth hover effects */
             display: inline-block;
             width: 200px;
             text-align: center;
         }
+
         .category-block:hover {
-            background-color: rgba(68, 68, 68, 0.8); /* Slightly lighter dark background on hover */
+            background-color: rgba(0, 50, 100, 0.9); /* Brighter blue on hover */
+            transform: scale(1.05); /* Slight zoom effect on hover */
         }
+
         #message {
             color: red;
             margin-top: 20px;
             display: none;
         }
+
         .social-logo-container {
             position: fixed;
             top: 20px;
             right: 20px;
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
+
         .social-logo-container img {
             width: 50px;
             height: 50px;
             cursor: pointer;
         }
+
         /* Search Styles */
         #search-container {
             margin-bottom: 30px;
             display: flex;
             justify-content: center;
         }
+
         #search-input {
             padding: 10px;
             font-size: 18px;
-            width: 200px;
-            border: 2px solid #FFD700;
-            color: #FFD700;
-            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background for input */
+            width: calc(100% - 120px);
+            max-width: 300px; /* Limit maximum width */
+            border-radius: 5px; /* Rounded corners */
+            border: 2px solid #007FFF; /* Light blue border */
+            color: #00FFFF; /* Cyan text color */
+            background-color: rgba(0, 0, 50, 0.7); /* Semi-transparent dark blue background for input */
         }
+
         #search-button {
             padding: 10px 20px;
             margin-left: 10px;
             font-size: 18px;
-            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background for button */
-            color: #FFD700; /* Gold text color */
-            border: 2px solid #FFD700; /* Gold border */
+            border-radius: 5px; /* Rounded corners for button */
+            background-color: rgba(0, 0, 50, 0.7); /* Semi-transparent dark blue background for button */
+            color: #00FFFF; /* Cyan text color */
+            border: 2px solid #007FFF; /* Light blue border */
             cursor: pointer;
         }
+
         #search-button:hover {
-            background-color: rgba(68, 68, 68, 0.8); /* Slightly lighter dark background on hover */
+            background-color: rgba(0, 50, 100, 0.9); /* Brighter blue on hover for button */
         }
     </style>
 </head>
