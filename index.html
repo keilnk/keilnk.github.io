@@ -3,161 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEILNK Website</title>
+    <title>KEILNK Profile</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
+        /* General Reset */
+        * {
             margin: 0;
             padding: 0;
-            background: url('Images/Background.gif') no-repeat center center fixed; /* Background image */
-            background-size: cover; /* Make the background cover the entire screen */
-            color: #00FFFF; /* Cyan text color */
+            box-sizing: border-box;
         }
 
-        h1 {
-            color: #00FFFF; /* Cyan color for the header */
-            font-size: 3rem; /* Larger font size for emphasis */
-            text-shadow: 0 0 10px #00FFFF, 0 0 20px #007FFF; /* Glowing effect */
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+            background: black; /* Fallback background color */
         }
 
-        p {
-            color: #A9F5F2; /* Light cyan text for paragraph */
-            font-size: 1.2rem;
-        }
-
-        .category-block {
-            padding: 20px;
-            margin: 20px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            background-color: rgba(0, 0, 50, 0.7); /* Semi-transparent dark blue background */
-            color: #00FFFF; /* Cyan text color */
-            border: 2px solid #007FFF; /* Light blue border */
-            border-radius: 10px; /* Rounded corners for a modern look */
-            transition: background-color 0.3s, transform 0.3s; /* Smooth hover effects */
-            display: inline-block;
-            width: 200px;
-            text-align: center;
-        }
-
-        .category-block:hover {
-            background-color: rgba(0, 50, 100, 0.9); /* Brighter blue on hover */
-            transform: scale(1.05); /* Slight zoom effect on hover */
-        }
-
-        #message {
-            color: red;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .social-logo-container {
+        /* Fullscreen Video Background */
+        #backgroundVideo {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure video covers the screen */
+            z-index: -1; /* Place behind all content */
+        }
+
+        /* Profile Card Container */
+        .profile-card {
+            position: absolute;
+            top: 55%; /* Adjusted to leave space for glowing text */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+            border-radius: 15px;
+            padding: 20px 40px; /* Reduced padding for a shorter card */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            width: 400px; /* Wider profile card */
+        }
+
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%; /* Circular avatar */
+            border: 2px solid #fff; /* White border around avatar */
+        }
+
+        .profile-card h1 {
+            margin-top: 10px;
+            color: white; /* White text for username */
+            font-size: 1.8rem;
+            text-shadow:
+                0 0 10px #00bfff, /* Leuchtendes Blau */
+                0 0 20px #00bfff,
+                0 0 30px #00bfff,
+                0 0 40px #00bfff,
+                0 0 50px #00bfff,
+                0 0 60px #00bfff,
+                0 0 70px #00bfff; /* Glow-Effekt */
+            font-family: 'Pacifico', cursive; /* Cool font for username */
+        }
+
+        .profile-card p {
+            color: #aaa; /* Light gray for location text */
             display: flex;
-            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Lato', sans-serif; /* Clean font for location text */
         }
 
-        .social-logo-container img {
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
+        .location-gif {
+            width: 8px; /* Reduced size of the Syrian flag GIF */
+            height: auto;
+            margin-left: 5px;
         }
 
-        /* Search Styles */
-        #search-container {
-            margin-bottom: 30px;
+        .icon-container {
             display: flex;
             justify-content: center;
+            gap: 15px; /* Space between icons */
+            margin-top: 15px;
         }
 
-        #search-input {
-            padding: 10px;
-            font-size: 18px;
-            width: calc(100% - 120px);
-            max-width: 300px; /* Limit maximum width */
-            border-radius: 5px; /* Rounded corners */
-            border: 2px solid #007FFF; /* Light blue border */
-            color: #00FFFF; /* Cyan text color */
-            background-color: rgba(0, 0, 50, 0.7); /* Semi-transparent dark blue background for input */
+        .icon-container a img {
+            width: 40px; /* Icon size */
+            height: auto;
+            cursor: pointer; /* Pointer cursor on hover */
         }
 
-        #search-button {
+        .views-counter {
+            margin-top: 10px;
+            color: white; /* White text for view count */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Space between buttons */
+            margin-top: 15px;
+        }
+
+        .redirect-button {
             padding: 10px 20px;
-            margin-left: 10px;
-            font-size: 18px;
-            border-radius: 5px; /* Rounded corners for button */
-            background-color: rgba(0, 0, 50, 0.7); /* Semi-transparent dark blue background for button */
-            color: #00FFFF; /* Cyan text color */
-            border: 2px solid #007FFF; /* Light blue border */
+            border-radius: 10px;
+            border: none;
             cursor: pointer;
+            background-color: #333;
+            color: white;
+            transition: background-color 0.3s ease;
+            font-family: 'Lato', sans-serif; /* Clean font for buttons */
         }
 
-        #search-button:hover {
-            background-color: rgba(0, 50, 100, 0.9); /* Brighter blue on hover for button */
+        .redirect-button:hover {
+            background-color: #444;
+        }
+
+        .volume-control {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            transition: background-color 0.3s ease;
+            font-family: 'Lato', sans-serif; /* Clean font for volume control */
+        }
+
+        .volume-control:hover {
+            background-color: #444;
+        }
+
+        /* Glowing Text Effect for "SUBSCRIBE" at the Top */
+        .glowing-text {
+            position: absolute;
+            top: 50px; /* Moved up */
+            left: 50%;
+            transform: translateX(-50%); /* Center horizontally */
+            font-size: 4rem;
+            color: #ffffff; /* Base white color for glow effect */
+            text-shadow:
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000,
+                0 0 40px #ff0000,
+                0 0 50px #ff0000,
+                0 0 60px #ff0000,
+                0 0 70px #ff0000; /* Neon glow effect in red */
+            font-family: 'Pacifico', cursive; /* Cool font for glowing text */
+        }
+
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 768px) {
+            .profile-card {
+                width: 80%; /* Adjust width for smaller screens */
+                padding: 15px 30px; /* Reduce padding for smaller screens */
+            }
+
+            .profile-card img {
+                width: 80px; /* Reduce avatar size on smaller screens */
+                height: 80px;
+            }
+
+            .profile-card h1 {
+                font-size: 1.5rem; /* Reduce font size for smaller screens */
+            }
+
+            .icon-container a img {
+                width: 30px; /* Reduce icon size on smaller screens */
+            }
+
+            .glowing-text {
+                font-size: 3rem; /* Reduce font size for smaller screens */
+                top: 60px; /* Adjusted for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                width: 90%; /* Further adjust width for very small screens */
+                padding: 10px 20px; /* Reduce padding even more for very small screens */
+            }
+
+            .profile-card img {
+                width: 60px; /* Further reduce avatar size on very small screens */
+                height: 60px;
+            }
+
+            .profile-card h1 {
+                font-size: 1.2rem; /* Further reduce font size for very small screens */
+            }
+
+            .icon-container a img {
+                width: 25px; /* Further reduce icon size on very small screens */
+            }
+
+            .glowing-text {
+                font-size: 2.5rem; /* Further reduce font size for very small screens */
+                top: 50px; /* Adjusted for very small screens */
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to KEILNK</h1>
-    <p>Please select a category to proceed:</p>
 
-    <!-- Search Section -->
-    <div id="search-container">
-        <input type="text" id="search-input" placeholder="Search content..." oninput="searchContent()">
-        <button id="search-button" onclick="searchContent()">Search</button>
+    <!-- Fullscreen Video Background -->
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="test.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="test.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Glowing Text -->
+    <div class="glowing-text">SUBSCRIBE</div>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+        <img src="Images/Background.gif" alt="Avatar">
+        <h1>KEILNK</h1>
+        
+        <!-- Redirect Buttons -->
+        <div class="button-container">
+            <button style="background-color: #fffb00; color: rgb(0, 0, 0); padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='Pages/games.html';">Games</button>
+            <button style="background-color: #008CBA; color: rgb(0, 0, 0); padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='Pages/scripts.html';">Scripts</button>
+            <button style="background-color: #29f700; color: rgb(0, 0, 0); padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='Pages/minecraft.html';">Minecraft</button>
+            <button style="background-color: #e7e7e7; color: black; padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='';">Soon..</button>
+        </div>
+
+        <!-- Volume Control Button -->
+        <div class="button-container" style="margin-top: 10px;">
+            <button class="volume-control" id="muteButton">Mute</button>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+        </div>
+
+        <p>Syria <img class="location-gif" src="Images/syria-flag.gif" alt="Syria Flag GIF" style="width: 40px; height: 40px;"></p>
+        
+        <!-- Social Media Icons -->
+        <div class="icon-container">
+            <a href="https://discord.gg/https://discord.gg/zEaFQHGTwg" target="_blank"><img src="Images/Logos/Discord.png" alt="Discord" style="width: 40px; height: 40px;"></a>
+            <a href="https://www.youtube.com/@keilnk" target="_blank"><img src="Images/Logos/Youtube.png" alt="YouTube" style="width: 40px; height: 40px;"></a>
+            <a href="https://www.tiktok.com/@" target="_blank"><img src="Images/Logos/tiktok-icon.png" alt="TikTok" style="width: 40px; height: 40px;"></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="Images/Logos/instagram-iconjpg.jpg" alt="Instagram" style="width: 40px; height: 40px;"></a>
+        </div>
+
+        <!-- Views Counter -->
+        <div class="views-counter" id="viewsCounter">👁️ 5</div>
     </div>
-
-    <!-- Categories Section -->
-    <div id="categories-container">
-        <div class="category-block" onclick="redirectToPage('games')">
-            Games
-        </div>
-        <div class="category-block" onclick="redirectToPage('scripts')">
-            Scripts
-        </div>
-        <div class="category-block" onclick="redirectToPage('minecraft')">
-            Minecraft
-        </div>
-    </div>
-
-    <!-- Social media logos -->
-    <div class="social-logo-container">
-       <a href="https://www.youtube.com/@keilnk" target="_blank">
-           <img src="Images/Logos/Youtube.png" alt="YouTube">
-       </a>
-       <a href="https://discord.gg/zEaFQHGTwg" target="_blank">
-           <img src="Images/Logos/Discord.png" alt="Discord">
-       </a>
-   </div>
 
     <script>
-        // Function to redirect to different pages
-        function redirectToPage(page) {
-            if (page === 'games') {
-                window.location.href = "Pages/games.html";
-            } else if (page === 'scripts') {
-                window.location.href = "Pages/scripts.html";
-            } else if (page === 'minecraft') {
-                window.location.href = "Pages/minecraft.html";
-            }
-        }
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const muteButton = document.getElementById('muteButton');
+        const volumeSlider = document.getElementById('volumeSlider');
 
-        // Search functionality
-        function searchContent() {
-            const searchQuery = document.getElementById('search-input').value.toLowerCase();
-            const pageContent = document.body.innerText.toLowerCase(); // All text on the page
-            
-            if (searchQuery) {
-                if (pageContent.includes(searchQuery)) {
-                    alert("Search term found on this page!");
-                } else {
-                    alert("No results found.");
-                }
+        muteButton.addEventListener('click', function() {
+            if (backgroundMusic.muted) {
+                backgroundMusic.muted = false;
+                muteButton.textContent = 'Mute';
+            } else {
+                backgroundMusic.muted = true;
+                muteButton.textContent = 'Unmute';
             }
-        }
+        });
+
+        volumeSlider.addEventListener('input', function() {
+            backgroundMusic.volume = volumeSlider.value;
+        });
     </script>
+
 </body>
 </html>
