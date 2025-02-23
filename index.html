@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <div id="glitch-container"></div>
     <div id="thunder-container"></div>
 
 <head>
@@ -308,84 +307,6 @@ body::after {
     }
 }
 
-#thunder-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.thunder {
-  position: absolute;
-  width: 2px;
-  height: 0;
-  background: #00ffff;
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
-  opacity: 0;
-  animation: thunderDrop 1s linear forwards;
-}
-
-@keyframes thunderDrop {
-  0% {
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    height: 100vh;
-    opacity: 0;
-  }
-}
-
-/* Glitch Particle Container */
-#glitch-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Prevent interaction with particles */
-    overflow: hidden;
-}
-
-/* Glitch Particle Styling */
-.glitch-particle {
-    position: absolute;
-    width: 10px; /* Adjust particle size */
-    height: 10px;
-    background: rgba(0, 238, 255, 0.8); /* Glowing blue color */
-    border-radius: 50%; /* Circular particles */
-    box-shadow: 0 0 10px rgba(0, 238, 255, 1), 
-                0 0 20px rgba(0, 238, 255, 0.8),
-                0 0 30px rgba(0, 238, 255, 0.6); /* Glow effect */
-    animation: glitch-animation linear infinite;
-}
-
-/* Glitch Animation */
-@keyframes glitch-animation {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-    }
-    25% {
-        transform: translate(-10px, -10px) scale(1.2);
-        opacity: 0.8;
-    }
-    50% {
-        transform: translate(10px, -5px) scale(1.5);
-        opacity: 0.6;
-    }
-    75% {
-        transform: translate(-5px, 10px) scale(1.2);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translate(0, 15px) scale(1);
-        opacity: 0; /* Fade out */
-    }
-}
 
 #thunder-container {
   position: fixed;
@@ -535,28 +456,6 @@ body::after {
         });
         
 
-        function createGlitchParticle() {
-    const container = document.getElementById('glitch-container');
-    
-    // Create a particle
-    const particle = document.createElement('div');
-    particle.classList.add('glitch-particle');
-    
-    // Randomize position and animation duration
-    particle.style.left = Math.random() * window.innerWidth + 'px'; // Random horizontal position
-    particle.style.top = Math.random() * window.innerHeight + 'px'; // Random vertical position
-    particle.style.animationDuration = Math.random() * 2 + 's'; // Random animation duration (up to 2 seconds)
-    
-    container.appendChild(particle);
-    
-    // Remove particle after animation ends
-    setTimeout(() => {
-        particle.remove();
-    }, parseFloat(particle.style.animationDuration) * 1000); // Matches animation duration
-}
-
-// Generate glitch particles at random intervals
-setInterval(createGlitchParticle, 300); // Create a new particle every 10ms
 
 //Thunder
 function createThunder() {
