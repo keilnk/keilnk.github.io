@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+    <div id="glitch-container"></div>
+    <div id="thunder-container"></div>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,20 +32,36 @@
             z-index: -1; /* Place behind all content */
         }
 
-        /* Profile Card Container */
-        .profile-card {
-            position: absolute;
-            top: 55%; /* Adjusted to leave space for glowing text */
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
-            border-radius: 15px;
-            padding: 20px 40px; /* Reduced padding for a shorter card */
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            width: 400px; /* Wider profile card */
-            height: auto;
-        }
+            /* Profile Card Container */
+    .profile-card {
+        position: absolute;
+        top: 55%; /* Adjusted to leave space for glowing text */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+        border-radius: 15px;
+        padding: 20px 40px; /* Reduced padding for a shorter card */
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        width: 400px; /* Wider profile card */
+        height: auto;
+        border: 2px solid rgba(0, 238, 255, 0.3); /* Add a border */
+        animation: borderGlow 5s linear infinite; /* Apply the border glow animation */
+    }
+@keyframes borderGlow {
+    0% {
+        border-color: rgba(0, 238, 255, 0.3);
+        box-shadow: 0 0 10px rgba(0, 238, 255, 0.0);
+    }
+    50% {
+        border-color: rgba(0, 238, 255, 0.7);
+        box-shadow: 0 0 20px rgba(0, 238, 255, 0.5);
+    }
+    100% {
+        border-color: rgba(0, 238, 255, 0.3);
+        box-shadow: 0 0 10px rgba(0, 238, 255, 0.0);
+    }
+}
 
         .profile-card img {
             width: 150px;
@@ -204,63 +223,199 @@
                 top: 50px; /* Adjusted for very small screens */
             }
         }
+
         /* Style the audio overlay */
-#audioOverlay {
+        #audioOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+
+        #audioPrompt {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #00bfff;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+        }
+
+        #enableAudio {
+            background: #00bfff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        #enableAudio:hover {
+            background: #0080ff;
+            transform: scale(1.1);
+        }
+
+/* GLITCH EFFECT with Glow - Applies to the Whole Body */
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 84, 153, 0.3); /* Adjust color and opacity */
+    z-index: 10; /* Ensure it is above other elements */
+    mix-blend-mode: color-dodge;
+    animation: glitchLine 2s linear infinite, glow 1s ease-in-out infinite alternate; /* Add glow animation */
+    box-shadow: 0 0 10px rgba(0, 238, 255, 0.7), 0 0 20px rgba(0, 238, 255, 0.5), 0 0 30px rgba(0, 238, 255, 0.3); /* Add glow effect */
+}
+
+body::before {
+    top: 30%; /* Adjust vertical position */
+}
+
+body::after {
+    bottom: 20%; /* Adjust vertical position */
+    animation-direction: reverse;
+}
+
+@keyframes glitchLine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes glow {
+    from {
+        filter: brightness(1);
+    }
+    to {
+        filter: brightness(1.5);
+    }
+}
+
+#thunder-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.thunder {
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background: #00ffff;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  opacity: 0;
+  animation: thunderDrop 1s linear forwards;
+}
+
+@keyframes thunderDrop {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    height: 100vh;
+    opacity: 0;
+  }
+}
+
+/* Glitch Particle Container */
+#glitch-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(5px);
-    display: none;
+    pointer-events: none; /* Prevent interaction with particles */
+    overflow: hidden;
 }
 
-#audioPrompt {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    border: 2px solid #00bfff;
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+/* Glitch Particle Styling */
+.glitch-particle {
+    position: absolute;
+    width: 10px; /* Adjust particle size */
+    height: 10px;
+    background: rgba(0, 238, 255, 0.8); /* Glowing blue color */
+    border-radius: 50%; /* Circular particles */
+    box-shadow: 0 0 10px rgba(0, 238, 255, 1), 
+                0 0 20px rgba(0, 238, 255, 0.8),
+                0 0 30px rgba(0, 238, 255, 0.6); /* Glow effect */
+    animation: glitch-animation linear infinite;
 }
 
-#enableAudio {
-    background: #00bfff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    margin-top: 15px;
-    transition: all 0.3s ease;
-}
-
-#enableAudio:hover {
-    background: #0080ff;
-    transform: scale(1.1);
-}
-
-.snowflake {
-    position: fixed;
-    top: -10px; 
-    font-size: 1rem;
-    z-index: 9999; /* Ensure it's in front of all elements */
-    pointer-events: none; /* Prevent interaction with the snowflakes */
-    animation: fall linear infinite;
-    box-shadow: 0 0 5px #FFFFFF, 0 0 10px #FFFFFF, 0 0 15px #FFFFFF; /* Glow effect */
-}
-
-
-@keyframes fall {
-    to {
-        transform: translateY(100vh); /* Move from top to bottom of viewport */
+/* Glitch Animation */
+@keyframes glitch-animation {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
     }
+    25% {
+        transform: translate(-10px, -10px) scale(1.2);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(10px, -5px) scale(1.5);
+        opacity: 0.6;
+    }
+    75% {
+        transform: translate(-5px, 10px) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(0, 15px) scale(1);
+        opacity: 0; /* Fade out */
+    }
+}
+
+#thunder-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.thunder {
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background: #00ffff;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  opacity: 0;
+  animation: thunderDrop 1s linear forwards;
+}
+
+@keyframes thunderDrop {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    height: 100vh;
+    opacity: 0;
+  }
 }
 
 
@@ -288,7 +443,6 @@
     <source src="test.mp3" type="audio/mpeg">
 </audio>
 
-
     <!-- Glowing Text -->
     <div class="glowing-text">SUBSCRIBE</div>
 
@@ -296,7 +450,7 @@
     <div class="profile-card">
         <img src="Images/Background.gif" alt="Avatar">
         <h1>KEILNK</h1>
-        
+
         <!-- Redirect Buttons -->
         <div class="button-container">
             <button style="background-color: #fffb00; color: rgb(0, 0, 0); padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='Pages/games.html';">Games</button>
@@ -312,7 +466,7 @@
         </div>
 
         <p>Syria <img class="location-gif" src="Images/syria-flag.gif" alt="Syria Flag GIF" style="width: 40px; height: 40px;"></p>
-        
+
         <!-- Social Media Icons -->
         <div class="icon-container">
             <a href="https://discord.gg/https://discord.gg/zEaFQHGTwg" target="_blank"><img src="Images/Logos/Discord.png" alt="Discord" style="width: 40px; height: 40px;"></a>
@@ -327,41 +481,41 @@
 
     <script>
 
-    // Add this script to handle audio playback
-    const audioOverlay = document.getElementById('audioOverlay');
-    const enableAudioBtn = document.getElementById('enableAudio');
-    const backgroundMusic = document.getElementById('backgroundMusic');
+        // Add this script to handle audio playback
+        const audioOverlay = document.getElementById('audioOverlay');
+        const enableAudioBtn = document.getElementById('enableAudio');
+        const backgroundMusic = document.getElementById('backgroundMusic');
 
-    // Initialize muted autoplay
-    document.addEventListener('DOMContentLoaded', () => {
-    backgroundMusic.play().catch(() => {
-        audioOverlay.style.display = 'flex';
-    });
-    });
+        // Initialize muted autoplay
+        document.addEventListener('DOMContentLoaded', () => {
+            backgroundMusic.play().catch(() => {
+                audioOverlay.style.display = 'flex';
+            });
+        });
 
-    // Single interaction handler
-    enableAudioBtn.addEventListener('click', () => {
-    backgroundMusic.muted = false;
-    audioOverlay.style.display = 'none';
-    localStorage.setItem('audioEnabled', 'true');
-    });
+        // Single interaction handler
+        enableAudioBtn.addEventListener('click', () => {
+            backgroundMusic.muted = false;
+            audioOverlay.style.display = 'none';
+            localStorage.setItem('audioEnabled', 'true');
+        });
 
-    // Check previous consent
-    if(localStorage.getItem('audioEnabled') === 'true') {
-    backgroundMusic.muted = false;
-    audioOverlay.style.display = 'none';
-    backgroundMusic.play().catch(console.error);
-    }
+        // Check previous consent
+        if(localStorage.getItem('audioEnabled') === 'true') {
+            backgroundMusic.muted = false;
+            audioOverlay.style.display = 'none';
+            backgroundMusic.play().catch(console.error);
+        }
 
-    // Unmute on first user interaction
-    let audioUnlocked = false;
-    document.addEventListener('click', function initAudio() {
-    if (!audioUnlocked) {
-        backgroundMusic.muted = false;
-        audioUnlocked = true;
-        document.removeEventListener('click', initAudio);
-    }
-    }, { once: true });
+        // Unmute on first user interaction
+        let audioUnlocked = false;
+        document.addEventListener('click', function initAudio() {
+            if (!audioUnlocked) {
+                backgroundMusic.muted = false;
+                audioUnlocked = true;
+                document.removeEventListener('click', initAudio);
+            }
+        }, { once: true });
 
         const muteButton = document.getElementById('muteButton');
         const volumeSlider = document.getElementById('volumeSlider');
@@ -379,32 +533,46 @@
         volumeSlider.addEventListener('input', function() {
             backgroundMusic.volume = volumeSlider.value;
         });
-
         
 
-// Function to create a snowflake
-function createSnowflake() {
-    const snowflake = document.createElement('div');
-    snowflake.classList.add('snowflake');
-    snowflake.textContent = '‖'; // Snowflake symbol
-
+        function createGlitchParticle() {
+    const container = document.getElementById('glitch-container');
+    
+    // Create a particle
+    const particle = document.createElement('div');
+    particle.classList.add('glitch-particle');
+    
     // Randomize position and animation duration
-    snowflake.style.left = Math.random() * 100 + 'vw';
-    snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Between 2s and 5s
-    snowflake.style.opacity = Math.random();
-
-    document.body.appendChild(snowflake);
-
-    // Remove snowflakes after they finish animating
+    particle.style.left = Math.random() * window.innerWidth + 'px'; // Random horizontal position
+    particle.style.top = Math.random() * window.innerHeight + 'px'; // Random vertical position
+    particle.style.animationDuration = Math.random() * 2 + 's'; // Random animation duration (up to 2 seconds)
+    
+    container.appendChild(particle);
+    
+    // Remove particle after animation ends
     setTimeout(() => {
-        snowflake.remove();
-    }, 5000); // Matches max animation duration
+        particle.remove();
+    }, parseFloat(particle.style.animationDuration) * 1000); // Matches animation duration
 }
 
-// Generate snowflakes at intervals
-setInterval(createSnowflake, 200); // Create a new snowflake every 200ms
+// Generate glitch particles at random intervals
+setInterval(createGlitchParticle, 10); // Create a new particle every 300ms
 
-</script>
+//Thunder
+function createThunder() {
+  const thunder = document.createElement('div');
+  thunder.className = 'thunder';
+  thunder.style.left = Math.random() * 100 + '%';
+  document.getElementById('thunder-container').appendChild(thunder);
+
+  setTimeout(() => {
+    thunder.remove();
+  }, 1000);
+}
+
+setInterval(createThunder, 100);
+
+    </script>
 
 </body>
 </html>
