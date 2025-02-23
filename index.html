@@ -204,6 +204,48 @@
                 top: 50px; /* Adjusted for very small screens */
             }
         }
+        /* Style the audio overlay */
+#audioOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    display: none;
+}
+
+#audioPrompt {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #00bfff;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+}
+
+#enableAudio {
+    background: #00bfff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+#enableAudio:hover {
+    background: #0080ff;
+    transform: scale(1.1);
+}
+
     </style>
 </head>
 <body>
@@ -214,10 +256,20 @@
         Your browser does not support the video tag.
     </video>
 
-    <!-- Background Music -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="test.mp3" type="audio/mpeg">
-    </audio>
+<!-- Add this audio overlay for user consent -->
+<div id="audioOverlay">
+    <div id="audioPrompt">
+        <h2 style="color: #00bfff; margin-bottom: 15px;">Interactive Experience</h2>
+        <p style="color: white;">Enable audio for full immersion</p>
+        <button id="enableAudio">Activate Sound</button>
+    </div>
+</div>
+
+<!-- Update the audio element -->
+<audio id="backgroundMusic" loop muted playsinline>
+    <source src="test.mp3" type="audio/mpeg">
+</audio>
+
 
     <!-- Glowing Text -->
     <div class="glowing-text">SUBSCRIBE</div>
@@ -256,7 +308,43 @@
     </div>
 
     <script>
-        const backgroundMusic = document.getElementById('backgroundMusic');
+
+    // Add this script to handle audio playback
+    const audioOverlay = document.getElementById('audioOverlay');
+    const enableAudioBtn = document.getElementById('enableAudio');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    // Initialize muted autoplay
+    document.addEventListener('DOMContentLoaded', () => {
+    backgroundMusic.play().catch(() => {
+        audioOverlay.style.display = 'flex';
+    });
+    });
+
+    // Single interaction handler
+    enableAudioBtn.addEventListener('click', () => {
+    backgroundMusic.muted = false;
+    audioOverlay.style.display = 'none';
+    localStorage.setItem('audioEnabled', 'true');
+    });
+
+    // Check previous consent
+    if(localStorage.getItem('audioEnabled') === 'true') {
+    backgroundMusic.muted = false;
+    audioOverlay.style.display = 'none';
+    backgroundMusic.play().catch(console.error);
+    }
+
+    // Unmute on first user interaction
+    let audioUnlocked = false;
+    document.addEventListener('click', function initAudio() {
+    if (!audioUnlocked) {
+        backgroundMusic.muted = false;
+        audioUnlocked = true;
+        document.removeEventListener('click', initAudio);
+    }
+    }, { once: true });
+
         const muteButton = document.getElementById('muteButton');
         const volumeSlider = document.getElementById('volumeSlider');
 
@@ -273,6 +361,8 @@
         volumeSlider.addEventListener('input', function() {
             backgroundMusic.volume = volumeSlider.value;
         });
+
+        
     </script>
 
 </body>
