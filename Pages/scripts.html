@@ -9,61 +9,73 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 50px;
-            background-color: black;
-            color: #FFD700;
+            background-color: #032B44; /* Dark blue background */
+            color: #ADD8E6; /* Light blue text */
         }
+
         h1, h2 {
-            color: #FFD700;
+            color: #ADD8E6; /* Light blue for headers */
         }
+
         .social-logo-container {
             position: fixed;
             top: 20px;
             right: 20px;
             display: flex;
             gap: 20px;
+            z-index: 1; /* Ensure it stays on top */
         }
+
         .social-logo-container img {
             width: 50px;
             height: 50px;
             cursor: pointer;
         }
+
         #home-button {
             position: fixed;
             top: 20px;
             left: 20px;
-            background-color: #FFD700;
-            color: black;
+            background-color: #4682B4; /* Steel blue for home button */
+            color: white;
             border: none;
             padding: 10px;
             cursor: pointer;
+            z-index: 1; /* Ensure it stays on top */
         }
+
         #search-container {
-            margin-top: 30px;
+            margin-top: 60px; /* Adjusted to account for fixed elements */
         }
+
         #search-input {
             padding: 10px;
             font-size: 18px;
             width: 300px;
-            border: 2px solid #FFD700;
-            color: #FFD700;
-            background-color: #333;
+            border: 2px solid #4682B4; /* Steel blue border for search input */
+            color: #ADD8E6; /* Light blue text color */
+            background-color: #1A1D23; /* Dark gray background for input */
         }
+
         .category-block {
             padding: 20px;
             margin: 20px;
             font-size: 24px;
             cursor: pointer;
-            background-color: #333;
-            color: #FFD700;
-            border: 2px solid #FFD700;
+            background-color: #1A1D23; /* Dark gray background */
+            color: #ADD8E6; /* Light blue text */
+            border: 2px solid #4682B4; /* Steel blue border */
             display: inline-block;
         }
+
         .category-block:hover {
-            background-color: #444;
+            background-color: #2F4F7F; /* Darker blue on hover */
         }
+
         .button-container {
             margin-top: 30px;
         }
+
         .button-container .category-block {
             width: 300px;  /* Make all buttons the same size */
             height: 150px; /* Set the height for the button block */
@@ -79,13 +91,96 @@
             cursor: pointer;
             border: none;
         }
+
         .button-container .category-block p {
             position: absolute;
-            color: #FFD700;
+            color: #ADD8E6; /* Light blue text for button labels */
             font-size: 24px;
         }
+
         .category-block button {
             display: none;  /* Hide the original button */
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 1024px) {
+            /* Adjustments for tablets */
+            .button-container {
+                flex-direction: column; /* Stack buttons vertically */
+            }
+            
+            .category-block {
+                width: 80%; /* Make buttons wider on smaller screens */
+                margin: 10px auto; /* Center and add space between buttons */
+            }
+            
+            #search-input {
+                width: 80%; /* Make search input wider on smaller screens */
+            }
+            
+            .social-logo-container img {
+                width: 40px; /* Reduce social logo size on tablets */
+                height: 40px;
+            }
+            
+            #home-button {
+                padding: 8px; /* Reduce home button padding on tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Adjustments for smaller tablets */
+            .category-block {
+                width: 90%; /* Make buttons even wider on smaller tablets */
+                margin: 10px auto; /* Center and add space between buttons */
+            }
+            
+            #search-input {
+                width: 90%; /* Make search input wider on smaller tablets */
+            }
+            
+            .social-logo-container img {
+                width: 30px; /* Reduce social logo size on smaller tablets */
+                height: 30px;
+            }
+            
+            #home-button {
+                padding: 6px; /* Reduce home button padding on smaller tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Adjustments for phones */
+            .category-block {
+                width: 95%; /* Make buttons even wider on phones */
+                margin: 10px auto; /* Center and add space between buttons */
+            }
+            
+            #search-input {
+                width: 95%; /* Make search input wider on phones */
+            }
+            
+            .social-logo-container img {
+                width: 25px; /* Reduce social logo size on phones */
+                height: 25px;
+            }
+            
+            #home-button {
+                padding: 4px; /* Reduce home button padding on phones */
+                font-size: 14px; /* Reduce home button text size on phones */
+            }
+            
+            h1, h2 {
+                font-size: 20px; /* Reduce header font size on phones */
+            }
+            
+            .category-block p {
+                font-size: 18px; /* Reduce button label font size on phones */
+            }
+            
+            body {
+                font-size: 16px; /* Adjust body text size for phones */
+            }
         }
     </style>
 </head>
@@ -139,10 +234,10 @@
     <!-- Social media logos -->
     <div class="social-logo-container">
         <a href="https://www.youtube.com/@keilnk" target="_blank">
-            <img src="Images/Logos/Youtube.png" alt="YouTube">
+            <img src="../Images/Logos/Youtube.png" alt="YouTube">
         </a>
         <a href="https://discord.gg/zEaFQHGTwg" target="_blank">
-            <img src="Images/Logos/Discord.png" alt="Discord">
+            <img src="../Images/Logos/Discord.png" alt="Discord">
         </a>
     </div>    
 
