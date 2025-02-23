@@ -246,6 +246,24 @@
     transform: scale(1.1);
 }
 
+.snowflake {
+    position: fixed;
+    top: -10px; 
+    font-size: 1rem;
+    z-index: 9999; /* Ensure it's in front of all elements */
+    pointer-events: none; /* Prevent interaction with the snowflakes */
+    animation: fall linear infinite;
+    box-shadow: 0 0 5px #FFFFFF, 0 0 10px #FFFFFF, 0 0 15px #FFFFFF; /* Glow effect */
+}
+
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh); /* Move from top to bottom of viewport */
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -363,7 +381,30 @@
         });
 
         
-    </script>
+
+// Function to create a snowflake
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.textContent = '‖'; // Snowflake symbol
+
+    // Randomize position and animation duration
+    snowflake.style.left = Math.random() * 100 + 'vw';
+    snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Between 2s and 5s
+    snowflake.style.opacity = Math.random();
+
+    document.body.appendChild(snowflake);
+
+    // Remove snowflakes after they finish animating
+    setTimeout(() => {
+        snowflake.remove();
+    }, 5000); // Matches max animation duration
+}
+
+// Generate snowflakes at intervals
+setInterval(createSnowflake, 200); // Create a new snowflake every 200ms
+
+</script>
 
 </body>
 </html>
