@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft - KEILNK</title>
     <style>
-        /* Ensure full height for the body */
+        /* General Body Styling */
         html, body {
-            height: 100%; /* Ensure body covers full viewport */
+            height: 100%;
             margin: 0;
             padding: 0;
         }
-
-        /* Set the background image */
 
         body {
             font-family: Arial, sans-serif;
@@ -119,86 +117,6 @@
         #search-button:hover {
             background-color: rgba(50, 205, 50, 0.9); /* Brighter green on hover for button */
         }
-
-        /* Responsive adjustments for smaller screens */
-        @media (max-width: 1024px) {
-            /* Adjustments for tablets */
-            .category-block {
-                width: 80%; /* Make buttons wider on smaller screens */
-                margin: 10px auto; /* Center and add space between buttons */
-            }
-            
-            #search-input {
-                width: calc(100% - 120px);
-                max-width: 250px; /* Adjust maximum width for smaller screens */
-            }
-            
-            .social-logo-container img {
-                width: 30px; /* Reduce social logo size on tablets */
-                height: 30px;
-            }
-            
-            #home-button {
-                padding: 8px; /* Reduce home button padding on tablets */
-            }
-        }
-
-        @media (max-width: 768px) {
-            /* Adjustments for smaller tablets */
-            .category-block {
-                width: 90%; /* Make buttons even wider on smaller tablets */
-                margin: 10px auto; /* Center and add space between buttons */
-            }
-            
-            #search-input {
-                width: calc(100% - 120px);
-                max-width: 200px; /* Adjust maximum width for smaller tablets */
-            }
-            
-            .social-logo-container img {
-                width: 25px; /* Reduce social logo size on smaller tablets */
-                height: 25px;
-            }
-            
-            #home-button {
-                padding: 6px; /* Reduce home button padding on smaller tablets */
-            }
-        }
-
-        @media (max-width: 480px) {
-            /* Adjustments for phones */
-            .category-block {
-                width: 95%; /* Make buttons even wider on phones */
-                margin: 10px auto; /* Center and add space between buttons */
-            }
-            
-            #search-input {
-                width: calc(100% - 120px);
-                max-width: 150px; /* Adjust maximum width for phones */
-            }
-            
-            .social-logo-container img {
-                width: 20px; /* Reduce social logo size on phones */
-                height: 20px;
-            }
-            
-            #home-button {
-                padding: 4px; /* Reduce home button padding on phones */
-                font-size: 0.8rem; /* Reduce home button text size on phones */
-            }
-            
-            h1, h2 {
-                font-size: 1.5rem; /* Reduce header font size on phones */
-            }
-            
-            p {
-                font-size: 1rem; /* Reduce paragraph font size on phones */
-            }
-            
-            .category-block p {
-                font-size: 1rem; /* Reduce button label font size on phones */
-            }
-        }
     </style>
 </head>
 <body>
@@ -218,48 +136,18 @@
 
     <!-- Categories Section -->
     <div class="button-container">
-        <div class="category-block" data-link="https://link-target.net/1298405/mcpe-texturepack" onclick="window.location.href=this.getAttribute('data-link');">
-           <p>FatCat16x</p>
+       <!-- Example Category Block -->
+       <div class="category-block" data-link="https://link-target.net/1298405/mcpe-texturepack" onclick="window.location.href=this.getAttribute('data-link');">
+          <p>FatCat16x</p>
        </div>
-
-        <!-- 10 buttons as content blocks -->
-        <div class="button-container">
-            <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 1</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 2</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 3</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 4</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 5</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 6</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 7</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 9</p>
-           </div>
-           <div class="category-block" data-link="https://example.com/10" onclick="window.location.href=this.getAttribute('data-link');">
-               <p>Button 10</p>
-           </div>
-        
-    </div>
        <!-- Add more category blocks as needed -->
-   </div>
+       <div class="category-block" data-link="https://example.com/11" onclick="window.location.href=this.getAttribute('data-link');">
+          <p>Another Button</p>
+       </div>
+    </div>
 
-   <!-- Social Media Logos -->
-   <div class="social-logo-container">
+    <!-- Social Media Logos -->
+    <div class="social-logo-container">
        <a href="https://www.youtube.com/@keilnk" target="_blank">
            <img src="../Images/Logos/Youtube.png" alt="YouTube">
        </a>
