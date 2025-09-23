@@ -1,477 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KEILNK Profile</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+
+    <!-- thunder container (unchanged) -->
     <div id="thunder-container"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEILNK Profile</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Prevent scrolling */
-            background: black; /* Fallback background color */
-        }
-
-        /* Fullscreen Video Background */
-        #backgroundVideo {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensure video covers the screen */
-            z-index: -1; /* Place behind all content */
-        }
-
-            /* Profile Card Container */
-    .profile-card {
-        position: absolute;
-        top: 55%; /* Adjusted to leave space for glowing text */
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
-        border-radius: 15px;
-        padding: 20px 40px; /* Reduced padding for a shorter card */
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        width: 400px; /* Wider profile card */
-        height: auto;
-        border: 2px solid rgba(0, 238, 255, 0.3); /* Add a border */
-        animation: borderGlow 5s linear infinite; /* Apply the border glow animation */
-    }
-@keyframes borderGlow {
-    0% {
-        border-color: rgba(0, 238, 255, 0.3);
-        box-shadow: 0 0 10px rgba(0, 238, 255, 0.0);
-    }
-    50% {
-        border-color: rgba(0, 238, 255, 0.7);
-        box-shadow: 0 0 20px rgba(0, 238, 255, 0.5);
-    }
-    100% {
-        border-color: rgba(0, 238, 255, 0.3);
-        box-shadow: 0 0 10px rgba(0, 238, 255, 0.0);
-    }
-}
-
-        .profile-card img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; /* Circular avatar */
-            border: 2px solid #000000; /* White border around avatar */
-        }
-
-        .profile-card h1 {
-            margin-top: 10px;
-            color: white; /* White text for username */
-            font-size: 1.8rem;
-            text-shadow:
-                0 0 10px #00bfff, /* Leuchtendes Blau */
-                0 0 20px #00bfff,
-                0 0 30px #00bfff,
-                0 0 40px #00bfff,
-                0 0 50px #00bfff,
-                0 0 60px #00bfff,
-                0 0 70px #00bfff; /* Glow-Effekt */
-            font-family: 'Pacifico', cursive; /* Cool font for username */
-        }
-
-        .profile-card p {
-            color: #aaa; /* Light gray for location text */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Lato', sans-serif; /* Clean font for location text */
-        }
-
-        .location-gif {
-            width: 8px; /* Reduced size of the Syrian flag GIF */
-            height: auto;
-            margin-left: 5px;
-        }
-
-        .icon-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px; /* Space between icons */
-            margin-top: 15px;
-        }
-
-        .icon-container a img {
-            width: 40px; /* Icon size */
-            height: auto;
-            cursor: pointer; /* Pointer cursor on hover */
-        }
-
-        .views-counter {
-            margin-top: 10px;
-            color: white; /* White text for view count */
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px; /* Space between buttons */
-            margin-top: 15px;
-        }
-
-        .redirect-button {
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            background-color: #333;
-            color: white;
-            transition: background-color 0.3s ease;
-            font-family: 'Lato', sans-serif; /* Clean font for buttons */
-        }
-
-        .redirect-button:hover {
-            background-color: #444;
-        }
-
-        .volume-control {
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            background-color: #333;
-            color: white;
-            transition: background-color 0.3s ease;
-            font-family: 'Lato', sans-serif; /* Clean font for volume control */
-        }
-
-        .volume-control:hover {
-            background-color: #444;
-        }
-
-        /* Glowing Text Effect for "SUBSCRIBE" at the Top */
-        .glowing-text {
-            position: absolute;
-            top: 50px; /* Moved up */
-            left: 50%;
-            transform: translateX(-50%); /* Center horizontally */
-            font-size: 4rem;
-            color: #ffffff; /* Base white color for glow effect */
-            text-shadow:
-                0 0 10px #ff0000,
-                0 0 20px #ff0000,
-                0 0 30px #ff0000,
-                0 0 40px #ff0000,
-                0 0 50px #ff0000,
-                0 0 60px #ff0000,
-                0 0 70px #ff0000; /* Neon glow effect in red */
-            font-family: 'Pacifico', cursive; /* Cool font for glowing text */
-        }
-
-        /* Responsive Design for Smaller Screens */
-        @media (max-width: 768px) {
-            .profile-card {
-                width: 80%; /* Adjust width for smaller screens */
-                padding: 15px 30px; /* Reduce padding for smaller screens */
-            }
-
-            .profile-card img {
-                width: 80px; /* Reduce avatar size on smaller screens */
-                height: 80px;
-            }
-
-            .profile-card h1 {
-                font-size: 1.5rem; /* Reduce font size for smaller screens */
-            }
-
-            .icon-container a img {
-                width: 30px; /* Reduce icon size on smaller screens */
-            }
-
-            .glowing-text {
-                font-size: 3rem; /* Reduce font size for smaller screens */
-                top: 60px; /* Adjusted for smaller screens */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .profile-card {
-                width: 90%; /* Further adjust width for very small screens */
-                padding: 10px 20px; /* Reduce padding even more for very small screens */
-            }
-
-            .profile-card img {
-                width: 60px; /* Further reduce avatar size on very small screens */
-                height: 60px;
-            }
-
-            .profile-card h1 {
-                font-size: 1.2rem; /* Further reduce font size for very small screens */
-            }
-
-            .icon-container a img {
-                width: 25px; /* Further reduce icon size on very small screens */
-            }
-
-            .glowing-text {
-                font-size: 2.5rem; /* Further reduce font size for very small screens */
-                top: 50px; /* Adjusted for very small screens */
-            }
-        }
-
-        /* Style the audio overlay */
-        #audioOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            display: none;
-        }
-
-        #audioPrompt {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            border: 2px solid #00bfff;
-            box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
-        }
-
-        #enableAudio {
-            background: #00bfff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-        }
-
-        #enableAudio:hover {
-            background: #0080ff;
-            transform: scale(1.1);
-        }
-
-/* GLITCH EFFECT with Glow - Applies to the Whole Body */
-body::before,
-body::after {
-    content: "";
-    position: fixed;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: rgba(0, 84, 153, 0.3); /* Adjust color and opacity */
-    z-index: 10; /* Ensure it is above other elements */
-    mix-blend-mode: color-dodge;
-    animation: glitchLine 2s linear infinite, glow 1s ease-in-out infinite alternate; /* Add glow animation */
-    box-shadow: 0 0 10px rgba(0, 238, 255, 0.7), 0 0 20px rgba(0, 238, 255, 0.5), 0 0 30px rgba(0, 238, 255, 0.3); /* Add glow effect */
-}
-
-body::before {
-    top: 30%; /* Adjust vertical position */
-}
-
-body::after {
-    bottom: 20%; /* Adjust vertical position */
-    animation-direction: reverse;
-}
-
-@keyframes glitchLine {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-@keyframes glow {
-    from {
-        filter: brightness(1);
-    }
-    to {
-        filter: brightness(1.5);
-    }
-}
-
-
-#thunder-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.thunder {
-  position: absolute;
-  width: 2px;
-  height: 0;
-  background: #00ffff;
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
-  opacity: 0;
-  animation: thunderDrop 1s linear forwards;
-}
-
-@keyframes thunderDrop {
-  0% {
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    height: 100vh;
-    opacity: 0;
-  }
-}
-
-
-    </style>
-</head>
-<body>
-
-    <!-- Fullscreen Video Background -->
+    <!-- Fullscreen Video Background (unchanged) -->
     <video autoplay muted loop id="backgroundVideo" preload="auto">
-        <source src="test.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+      <source src="test.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
     </video>
-    
-<!-- Add this audio overlay for user consent -->
-<div id="audioOverlay">
-    <div id="audioPrompt">
-        <h2 style="color: #00bfff; margin-bottom: 15px;">Interactive Experience</h2>
-        <p style="color: white;">Enable audio for full immersion</p>
+
+    <!-- Audio consent overlay (unchanged) -->
+    <div id="audioOverlay">
+      <div id="audioPrompt">
+        <h2 class="prompt-title">Interactive Experience</h2>
+        <p class="prompt-subtitle">Enable audio for full immersion</p>
         <button id="enableAudio">Activate Sound</button>
+      </div>
     </div>
-</div>
 
-<!-- Update the audio element -->
-<audio id="backgroundMusic" loop muted playsinline>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+    <!-- Background music (unchanged path) -->
+    <audio id="backgroundMusic" loop muted playsinline>
+      <source src="music.mp3" type="audio/mpeg" />
+    </audio>
 
-    <!-- Glowing Text -->
-    <div class="glowing-text">SUBSCRIBE</div>
+    <!-- Top neon text: now a button so it can open a new tab -->
+    <button class="glowing-text" id="dontClick" type="button">DON’T CLICK</button>
 
-    <!-- Profile Card -->
+    <!-- Profile Card (unchanged layout) -->
     <div class="profile-card">
-        <img src="Images/Avatar.jpg" alt="Avatar">
-        <h1>KEILNK</h1>
+      <img src="Images/Avatar.jpg" alt="Avatar" />
+      <h1>KEILNK</h1>
 
-        <!-- Redirect Buttons -->
-        <div class="button-container">
-            <button style="background-color: #fffb00; color: rgb(0, 0, 0); padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='Pages/games.html';">Games</button>
-            <button style="background-color: #008CBA; color: rgb(0, 0, 0); padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='Pages/scripts.html';">Scripts</button>
-            <button style="background-color: #29f700; color: rgb(0, 0, 0); padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='Pages/minecraft.html';">Minecraft</button>
-            <button style="background-color: #e7e7e7; color: black; padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;" onclick="window.location.href='';">Soon..</button>
-        </div>
+      <!-- Redirect Buttons (Soon.. removed) -->
+      <div class="button-container">
+        <button class="redirect-button" data-href="Pages/games.html" style="background-color:#fffb00;color:#000;">Games</button>
+        <button class="redirect-button" data-href="Pages/scripts.html" style="background-color:#008CBA;color:#000;">Scripts</button>
+        <button class="redirect-button" data-href="Pages/minecraft.html" style="background-color:#29f700;color:#000;">Minecraft</button>
+      </div>
 
-        <!-- Volume Control Button -->
-        <div class="button-container" style="margin-top: 10px;">
-            <button class="volume-control" id="muteButton">Mute</button>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-        </div>
+      <!-- Volume Control (unchanged) -->
+      <div class="button-container" style="margin-top:10px;">
+        <button class="volume-control" id="muteButton">Mute</button>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" />
+      </div>
 
-        <p>Syria <img class="location-gif" src="Images/syria-flag.gif" alt="Syria Flag GIF" style="width: 40px; height: 40px;"></p>
+      <p>
+        Syria
+        <img class="location-gif" src="Images/syria-flag.gif" alt="Syria Flag GIF" style="width:40px;height:40px;" />
+      </p>
 
-        <!-- Social Media Icons -->
-        <div class="icon-container">
-            <a href="https://discord.gg/https://discord.gg/zEaFQHGTwg" target="_blank"><img src="Images/Logos/Discord.png" alt="Discord" style="width: 40px; height: 40px;"></a>
-            <a href="https://www.youtube.com/@keilnk" target="_blank"><img src="Images/Logos/Youtube.png" alt="YouTube" style="width: 40px; height: 40px;"></a>
-            <a href="https://www.tiktok.com/@" target="_blank"><img src="Images/Logos/tiktok-icon.png" alt="TikTok" style="width: 40px; height: 40px;"></a>
-            <a href="https://www.instagram.com/" target="_blank"><img src="Images/Logos/instagram-iconjpg.jpg" alt="Instagram" style="width: 40px; height: 40px;"></a>
-        </div>
+      <!-- Social Media Icons (TikTok removed, others unchanged) -->
+      <div class="icon-container">
+        <a href="https://discord.gg/https://discord.gg/zEaFQHGTwg" target="_blank" rel="noopener">
+          <img src="Images/Logos/Discord.png" alt="Discord" style="width:40px;height:40px;" />
+        </a>
+        <a href="https://www.youtube.com/@keilnk" target="_blank" rel="noopener">
+          <img src="Images/Logos/Youtube.png" alt="YouTube" style="width:40px;height:40px;" />
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">
+          <img src="Images/Logos/instagram-iconjpg.jpg" alt="Instagram" style="width:40px;height:40px;" />
+        </a>
+      </div>
 
-        <!-- Views Counter -->
-        <div class="views-counter" id="viewsCounter">👁️ ♾️</div>
+      <!-- Views (unchanged) -->
+      <div class="views-counter" id="viewsCounter">👁️ ♾️</div>
     </div>
-
-    <script>
-
-        // Add this script to handle audio playback
-        const audioOverlay = document.getElementById('audioOverlay');
-        const enableAudioBtn = document.getElementById('enableAudio');
-        const backgroundMusic = document.getElementById('backgroundMusic');
-
-        // Initialize muted autoplay
-        document.addEventListener('DOMContentLoaded', () => {
-            backgroundMusic.play().catch(() => {
-                audioOverlay.style.display = 'flex';
-            });
-        });
-
-        // Single interaction handler
-        enableAudioBtn.addEventListener('click', () => {
-            backgroundMusic.muted = false;
-            audioOverlay.style.display = 'none';
-            localStorage.setItem('audioEnabled', 'true');
-        });
-
-        // Check previous consent
-        if(localStorage.getItem('audioEnabled') === 'true') {
-            backgroundMusic.muted = false;
-            audioOverlay.style.display = 'none';
-            backgroundMusic.play().catch(console.error);
-        }
-
-        // Unmute on first user interaction
-        let audioUnlocked = false;
-        document.addEventListener('click', function initAudio() {
-            if (!audioUnlocked) {
-                backgroundMusic.muted = false;
-                audioUnlocked = true;
-                document.removeEventListener('click', initAudio);
-            }
-        }, { once: true });
-
-        const muteButton = document.getElementById('muteButton');
-        const volumeSlider = document.getElementById('volumeSlider');
-
-        muteButton.addEventListener('click', function() {
-            if (backgroundMusic.muted) {
-                backgroundMusic.muted = false;
-                muteButton.textContent = 'Mute';
-            } else {
-                backgroundMusic.muted = true;
-                muteButton.textContent = 'Unmute';
-            }
-        });
-
-        volumeSlider.addEventListener('input', function() {
-            backgroundMusic.volume = volumeSlider.value;
-        });
-        
-
-
-//Thunder
-function createThunder() {
-  const thunder = document.createElement('div');
-  thunder.className = 'thunder';
-  thunder.style.left = Math.random() * 100 + '%';
-  document.getElementById('thunder-container').appendChild(thunder);
-
-  setTimeout(() => {
-    thunder.remove();
-  }, 1000);
-}
-
-setInterval(createThunder, 600); // Create a new particle every 100ms
-
-    </script>
-
-</body>
+  </body>
 </html>

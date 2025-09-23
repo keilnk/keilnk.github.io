@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DANGER — Are you sure?</title>
+    <style>
+      /* Page base */
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{margin:0;background:#000;color:#fff;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif}
+
+      /* Background video: full viewport on all devices */
+      #bgVideo{
+        position:fixed;
+        left:0; top:0;
+        width:100vw;
+        height:100dvh;     /* dynamic viewport height on modern mobile/desktop */
+        height:100vh;      /* fallback */
+        object-fit:cover;
+        object-position:center center;
+        z-index:-1;
+        filter:brightness(.9) contrast(1.05);
+      }
+
+      /* Full-screen overlay with blur (animated via opacity for perf) */
+      .overlay{
+        position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+        background:rgba(0,0,0,.65);
+        backdrop-filter: blur(6px) opacity(1);
+        -webkit-backdrop-filter: blur(6px) opacity(1);
+        transition: opacity .25s ease;
+        z-index:10;
+      }
+      .overlay.hidden{ opacity:0; pointer-events:none }
+
+      /* Modal container */
+      .gate{
+        width:min(620px,calc(100% - 32px));
+        border-radius:16px;
+        background:rgba(18,0,0,.7);
+        border:1px solid rgba(255,64,64,.55);
+        box-shadow:0 24px 80px rgba(0,0,0,.6), inset 0 0 50px rgba(255,0,0,.08);
+        overflow:hidden;
+        animation: pop-in .28s ease-out both;
+      }
+      @keyframes pop-in{
+        from{ transform:translateY(18px) scale(.98); opacity:0 }
+        to{   transform:translateY(0)    scale(1);   opacity:1 }
+      }
+
+      /* Animated hazard banner */
+      .hazard{
+        position:relative;
+        background:#2a0000;
+        color:#fff;
+        padding:10px 14px;
+        display:flex; align-items:center; justify-content:center; gap:10px;
+        font-weight:800; letter-spacing:.6px;
+        text-transform:uppercase;
+        border-bottom:1px solid rgba(255,64,64,.45);
+      }
+      .hazard::before,
+      .hazard::after{
+        content:"";
+        position:absolute; left:-20%; right:-20%; height:8px; top:0;
+        background: repeating-linear-gradient(135deg,#ff2d2d 0 16px,#111 16px 32px);
+        animation: stripe 1s linear infinite;
+        opacity:.6;
+      }
+      .hazard::after{ top:auto; bottom:0 }
+      @keyframes stripe{
+        from{ transform:translateX(0) }
+        to{   transform:translateX(32px) }
+      }
+      .hazard .emoji{ font-size:1.2rem; filter:drop-shadow(0 0 10px rgba(255,0,0,.7)) }
+      .hazard .label{ font-size:.95rem; letter-spacing:1.2px }
+
+      /* Content */
+      .content{ padding:18px 18px 16px; text-align:center }
+      .title{ margin:6px 0 6px; font-size:clamp(1.2rem,2.6vw,1.6rem); color:#ffe9e9 }
+      .desc{ margin:0 0 14px; color:#ffd7d7 }
+
+      /* 3-step confirms */
+      .steps{ display:grid; gap:10px; margin:12px auto 6px; width:min(440px,100%) }
+      .steps button{
+        padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.25);
+        background:rgba(60,0,0,.6); color:#fff; cursor:pointer;
+        transition: transform .1s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
+      }
+      .steps button:hover{ transform:translateY(-1px) }
+      .steps button:active{ transform:translateY(0) }
+      .steps button.done{ background:rgba(0,120,0,.55); border-color:rgba(180,255,180,.5) }
+      .steps button.locked{ opacity:.5; pointer-events:none }
+
+      /* Footer actions */
+      .actions{ display:flex; gap:10px; justify-content:center; margin:8px 0 6px }
+      .red{ background:#ff3b30; border:0; color:#fff }
+      .outline{ background:transparent; border:1px solid rgba(255,255,255,.45); color:#fff }
+      .red, .outline{ padding:10px 16px; border-radius:12px; cursor:pointer }
+
+      /* After-enter controls */
+      .player{ position:fixed; left:16px; bottom:16px; display:flex; gap:10px; z-index:1 }
+      .player button{
+        background:rgba(0,0,0,.5); color:#fff; border:1px solid rgba(255,255,255,.35);
+        padding:8px 12px; border-radius:10px; cursor:pointer; backdrop-filter:blur(3px);
+      }
+      @media (max-width:480px){ .player{ left:10px; bottom:10px } }
+    </style>
+  </head>
+  <body>
+    <video id="bgVideo" preload="auto" playsinline muted>
+      <source src="../dontClick.mp4" type="video/mp4" />
+    </video>
+
+    <audio id="dcAudio" preload="auto" loop>
+      <source src="../dontClick.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="warn">
+      <div class="gate">
+        <div class="hazard">
+          <span class="emoji">⚠️</span>
+          <span class="label" id="warn">DANGER</span>
+          <span class="emoji">🚫</span>
+        </div>
+        <div class="content">
+          <h2 class="title">Are you sure?</h2>
+          <p class="desc">This page will play a background video that may be loud and intense.</p>
+          <div class="steps">
+            <button id="s1">Yes, continue anyway</button>
+            <button id="s2" class="locked">Really sure — proceed</button>
+            <button id="s3" class="locked">Final confirmation</button>
+          </div>
+          <div class="actions">
+            <button id="continue" class="red" disabled>Continue</button>
+            <button id="back" class="outline">Go back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="player" aria-hidden="true">
+      <button id="toggleMute">Unmute</button>
+      <button id="pausePlay">Pause</button>
+    </div>
+
+    <script>
+      const overlay = document.getElementById('overlay');
+      const video = document.getElementById('bgVideo');
+      const s1 = document.getElementById('s1');
+      const s2 = document.getElementById('s2');
+      const s3 = document.getElementById('s3');
+      const continueBtn = document.getElementById('continue');
+      const back = document.getElementById('back');
+      const toggleMute = document.getElementById('toggleMute');
+      const pausePlay = document.getElementById('pausePlay');
+      const dcAudio = document.getElementById('dcAudio');
+
+      // Start paused and muted for autoplay policies
+      video.pause(); video.muted = true;
+
+      function done(btn,next){
+        btn.classList.add('done');
+        btn.classList.remove('locked');
+        if(next){ next.classList.remove('locked'); next.focus(); }
+        if(s1.classList.contains('done') && s2.classList.contains('done') && s3.classList.contains('done')){
+          continueBtn.disabled = false;
+        }
+      }
+      [s1,s2,s3].forEach((b)=>b.addEventListener('click',()=>{
+        b.style.transform='translateY(-1px)'; setTimeout(()=>b.style.transform='',120);
+        if(b===s1){ done(s1,s2); }
+        else if(b===s2 && !s2.classList.contains('locked')){ done(s2,s3); }
+        else if(b===s3 && !s3.classList.contains('locked')){ done(s3); }
+      }));
+
+      // Continue: play video and audio, fade overlay
+      continueBtn.addEventListener('click', async ()=>{
+        if(continueBtn.disabled) return;
+        try { await video.play(); } catch {}
+        try { dcAudio.currentTime = 0; dcAudio.volume = 1.0; await dcAudio.play(); } catch { dcAudio.setAttribute('controls',''); }
+        overlay.classList.add('hidden');
+        setTimeout(()=>overlay.style.display='none', 300);
+      });
+
+      back.addEventListener('click', ()=>{
+        if(document.referrer){ history.back(); } else { window.location.href = '../index.html'; }
+      });
+
+      toggleMute.addEventListener('click', ()=>{
+        const nowMuted = !video.muted;
+        video.muted = nowMuted;
+        dcAudio.muted = nowMuted;
+        toggleMute.textContent = nowMuted ? 'Unmute' : 'Mute';
+      });
+
+      pausePlay.addEventListener('click', async ()=>{
+        if(video.paused){ try{ await video.play(); }catch{}; pausePlay.textContent='Pause'; }
+        else{ video.pause(); pausePlay.textContent='Play'; }
+      });
+    </script>
+  </body>
+</html>
