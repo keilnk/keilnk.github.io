@@ -9,16 +9,13 @@
   </head>
   <body>
 
-    <!-- thunder container (unchanged) -->
-    <div id="thunder-container"></div>
-
-    <!-- Fullscreen Video Background (unchanged) -->
-    <video autoplay muted loop id="backgroundVideo" preload="auto">
+    <!-- Fullscreen Video Background -->
+    <video autoplay muted loop id="backgroundVideo" preload="auto" playsinline>
       <source src="test.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
 
-    <!-- Audio consent overlay (unchanged) -->
+    <!-- Audio consent overlay -->
     <div id="audioOverlay">
       <div id="audioPrompt">
         <h2 class="prompt-title">Interactive Experience</h2>
@@ -27,25 +24,27 @@
       </div>
     </div>
 
-    <!-- Background music (unchanged path) -->
+    <!-- Background music -->
     <audio id="backgroundMusic" loop muted playsinline>
       <source src="home.mp3" type="audio/mpeg" />
     </audio>
 
-    <!-- Top neon text -->
+    <!-- Dangerous top button -->
     <button class="glowing-text" id="dontClick" type="button">DON’T CLICK</button>
 
     <!-- Profile Card -->
-
-
     <div class="profile-card">
+
       <div class="avatar-row">
-  <img src="Images/Avatar.jpg" alt="Avatar" class="avatar-pic" />
+        <div class="disc">
+          <img src="Images/Avatar.jpg" alt="Avatar" class="avatar-pic" />
+          <span class="disc-reflection"></span>
+        </div>
         <h1>KEILNK</h1>
-  <div class="marquee" aria-label="Welcome message">
-    <div class="marquee-track">Welcome to my world • Welcome to my world • Welcome to my world • </div>
-  </div>
-</div>
+        <div class="marquee" aria-label="Welcome message">
+          <div class="marquee-track">Welcome to my world • Welcome to my world • Welcome to my world • </div>
+        </div>
+      </div>
 
       <!-- Redirect Buttons -->
       <div class="button-container">
@@ -79,7 +78,12 @@
         </a>
       </div>
 
-      <div class="views-counter" id="viewsCounter">👁️ ♾️</div>
+      <!-- Live views -->
+      <div class="views-row">
+        <span class="eye">👁️</span>
+        <span id="viewsCounter" class="views-counter">—</span>
+        <span class="views-label">online</span>
+      </div>
     </div>
 
     <!-- Password modal -->

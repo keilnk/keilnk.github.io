@@ -3,20 +3,21 @@
 
 body{
   font-family: Arial, sans-serif;
-  overflow: hidden;          /* Prevent scrolling (unchanged) */
-  background: black;         /* Fallback (unchanged) */
+  overflow: hidden;
+  background: black;
 }
 
-/* Fullscreen Video Background (unchanged) */
+/* Fullscreen Video Background */
 #backgroundVideo{
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   z-index: -1;
+  transition: opacity .15s linear; /* used for seamless loop fade */
 }
 
-/* Profile Card (unchanged) */
+/* Profile Card */
 .profile-card{
   position: absolute;
   top: 55%; left: 50%;
@@ -25,9 +26,9 @@ body{
   background-color: rgba(0,0,0,0.6);
   border-radius: 15px;
   padding: 20px 40px;
-  box-shadow: 0 0 20px rgba(255,255,255,0.2);
   width: 400px; height: auto;
-  border: 2px solid rgba(0,238,255,0.3);
+  border: 2px solid rgba(0,238,255,0.45);
+  box-shadow: 0 0 20px rgba(0,238,255,0.25);
   animation: borderGlow 5s linear infinite;
 }
 @keyframes borderGlow{
@@ -36,44 +37,76 @@ body{
   100%{border-color:rgba(0,238,255,0.3);box-shadow:0 0 10px rgba(0,238,255,0)}
 }
 
-.profile-card img{
-  width:150px;height:150px;border-radius:50%;
-  border:2px solid #000000;
+/* Avatar as CD */
+.disc{
+  position:relative;
+  width:150px; height:150px;
+  border-radius:50%;
+  display:grid; place-items:center;
+  background: radial-gradient(circle at 60% 40%, rgba(255,255,255,.15), rgba(0,0,0,.2) 60%),
+              radial-gradient(circle, rgba(0,191,255,.25), transparent 60%);
+  box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 0 12px rgba(0,238,255,.25);
+  animation: spin 18s linear infinite;
 }
+.disc:hover{ animation-duration: 9s }
+.disc::before{
+  content:"";
+  position:absolute; inset:10%;
+  border-radius:50%;
+  border:2px dashed rgba(0,238,255,.35);
+  pointer-events:none;
+}
+.avatar-pic{
+  width:86%; height:86%; border-radius:50%; object-fit:cover;
+  border:2px solid rgba(0,238,255,.25);
+}
+.disc-reflection{
+  position:absolute; top:6%; left:10%;
+  width:55%; height:24%;
+  background: linear-gradient(135deg, rgba(255,255,255,.45), rgba(255,255,255,0));
+  border-radius:999px; transform:rotate(-18deg);
+  filter:blur(1px); pointer-events:none;
+}
+@keyframes spin{ to{ transform: rotate(360deg) } }
 
+/* Avatar row layout */
+.avatar-row{
+  display:grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  align-items:center; gap:10px 14px;
+  margin-bottom:12px;
+}
+.avatar-row h1{ grid-column: 2 / 3; margin:0 }
+
+/* Headline */
 .profile-card h1{
-  margin-top:10px;color:#fff;font-size:1.8rem;
+  color:#fff; font-size:1.8rem;
   text-shadow:
     0 0 10px #00bfff,
     0 0 20px #00bfff,
     0 0 30px #00bfff,
-    0 0 40px #00bfff,
-    0 0 50px #00bfff,
-    0 0 60px #00bfff,
-    0 0 70px #00bfff;
+    0 0 40px #00bfff;
   font-family:'Pacifico',cursive;
 }
 
+/* Info text */
 .profile-card p{
-  color:#aaa; display:flex; align-items:center; justify-content:center;
+  color:#aee7ff; display:flex; align-items:center; justify-content:center;
   font-family:'Lato',sans-serif;
 }
+.location-gif{ width:18px; height:auto; margin-left:5px }
 
-.location-gif{ width:8px; height:auto; margin-left:5px }
-
-
-/* Marquee container */
+/* Marquee */
 .marquee{
   position:relative;
   flex:1;
   overflow:hidden;
   height:32px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.2);
-  background:rgba(0,0,0,.35);
+  border:1px solid rgba(0,238,255,.2);
+  background:rgba(0,20,30,.35);
 }
-
-/* Scrolling track */
 .marquee-track{
   position:absolute;
   white-space:nowrap;
@@ -81,67 +114,64 @@ body{
   font-weight:700;
   letter-spacing:.5px;
   padding-inline:10px;
-  color:#fff;
+  color:#eafeff;
   animation: slideX 14s linear infinite;
 }
-
-/* Pause on hover/focus for accessibility */
 .marquee:hover .marquee-track,
 .marquee:focus-within .marquee-track{ animation-play-state:paused; }
+@keyframes slideX{ from{ transform:translateX(-10%) } to{ transform:translateX(100%) } }
 
-@keyframes slideX{
-  from{ transform:translateX(-10%); }
-  to{   transform:translateX(100%); }
-}
-
-@media (max-width:520px){
-  .avatar-pic{ width:64px; height:64px; }
-  .marquee{ height:28px; }
-  .marquee-track{ font-size:.95rem; }
-}
-
-
-/* Icon rows and buttons (unchanged except removed elements in HTML) */
+/* Buttons & icons */
 .icon-container{
   display:flex; justify-content:center; gap:15px; margin-top:15px;
 }
 .icon-container a img{ width:40px; height:auto; cursor:pointer }
 
-.views-counter{ margin-top:10px; color:white }
-
-.button-container{
-  display:flex; justify-content:center; gap:15px; margin-top:15px;
-}
-.redirect-button{
-  padding:10px 20px; border-radius:10px; border:none; cursor:pointer;
-  background-color:#333; color:white; transition:background-color .3s ease;
+.button-container{ display:flex; justify-content:center; gap:15px; margin-top:15px }
+.redirect-button, .volume-control{
+  padding:10px 20px; border-radius:10px; border:1px solid rgba(0,238,255,.25); cursor:pointer;
+  background: rgba(0,25,35,.65); color:white; transition:background-color .3s ease;
   font-family:'Lato',sans-serif;
 }
-.redirect-button:hover{ background-color:#444 }
+.redirect-button:hover, .volume-control:hover{ background: rgba(0,45,60,.75) }
 
-.volume-control{
-  padding:10px 20px; border-radius:10px; border:none; cursor:pointer;
-  background-color:#333; color:white; transition:background-color .3s ease;
-  font-family:'Lato',sans-serif;
-}
-.volume-control:hover{ background-color:#444 }
-
-/* Glowing Top Text (same visual, now a button) */
+/* Dangerous Top Button */
 .glowing-text{
   position:absolute; top:50px; left:50%; transform:translateX(-50%);
-  font-size:4rem; color:#ffffff; background:transparent; border:none; cursor:pointer;
+  font-size: clamp(2rem, 8vw, 4rem);
+  color:#ff3b3b; background:rgba(20,0,0,.25);
+  border:1px solid rgba(255,0,0,.5);
+  padding:.25em .6em; border-radius:999px; cursor:pointer;
   text-shadow:
-    0 0 10px #ff0000,
-    0 0 20px #ff0000,
-    0 0 30px #ff0000,
-    0 0 40px #ff0000,
-    0 0 50px #ff0000,
-    0 0 60px #ff0000,
-    0 0 70px #ff0000;
-  font-family:'Pacifico',cursive;
+    0 0 10px rgba(255,0,0,.9),
+    0 0 20px rgba(255,0,0,.7),
+    0 0 40px rgba(255,0,0,.5);
+  box-shadow:
+    inset 0 0 12px rgba(255,0,0,.35),
+    0 0 24px rgba(255,0,0,.35);
+  animation: dangerPulse 1.8s ease-in-out infinite;
 }
+.glowing-text::after{
+  content:""; position:absolute; inset:-2px;
+  border-radius:inherit; pointer-events:none;
+  background: conic-gradient(from 0deg, rgba(255,0,0,.0), rgba(255,0,0,.35), rgba(255,0,0,.0));
+  filter: blur(14px); opacity:.55;
+  animation: sweep 2.6s linear infinite;
+}
+.glowing-text:hover{ filter:saturate(1.15) brightness(1.08) }
+@keyframes dangerPulse{ 0%,100%{ transform:translateX(-50%) scale(1) } 50%{ transform:translateX(-50%) scale(1.04) } }
+@keyframes sweep{ to{ transform: rotate(360deg) } }
 
-/* Audio overlay (unchanged) */
+/* Views row */
+.views-row{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  margin-top:12px; color:#eafaff;
+  text-shadow: 0 0 8px rgba(0,238,255,.45);
+}
+.views-counter{ font-weight:700; letter-spacing:.5px }
+.views-label{ opacity:.8; font-size:.95rem }
+
+/* Audio overlay */
 #audioOverlay{
   position:fixed; top:0; left:0; width:100%; height:100%;
   background:rgba(0,0,0,0.9); z-index:1000;
@@ -161,21 +191,17 @@ body{
 .prompt-title{ color:#00bfff; margin-bottom:15px }
 .prompt-subtitle{ color:white }
 
-
-/* Responsive (unchanged) */
+/* Responsive */
 @media (max-width:768px){
-  .profile-card{ width:80%; padding:15px 30px }
-  .profile-card img{ width:80px; height:80px }
-  .profile-card h1{ font-size:1.5rem }
-  .icon-container a img{ width:30px }
-  .glowing-text{ font-size:3rem; top:60px }
+  .profile-card{ width:min(92%, 420px); padding:16px 24px }
+  .disc{ width:120px; height:120px }
 }
 @media (max-width:480px){
-  .profile-card{ width:90%; padding:10px 20px }
-  .profile-card img{ width:60px; height:60px }
-  .profile-card h1{ font-size:1.2rem }
-  .icon-container a img{ width:25px }
-  .glowing-text{ font-size:2.5rem; top:50px }
+  .profile-card{ width:min(94%, 360px); padding:14px 18px; top: 54% }
+  .disc{ width:100px; height:100px }
+  .glowing-text{ top:38px }
+  .marquee{ height:26px }
+  .marquee-track{ font-size:.9rem }
 }
 
 /* Password modal */

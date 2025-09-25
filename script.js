@@ -10,11 +10,18 @@ document.addEventListener('click', (e) => {
 });
 
 /* ----------------------------
-   DON’T CLICK -> new tab
+   DON’T CLICK -> new tab + danger click effect
 ----------------------------- */
 const dontClickBtn = document.getElementById('dontClick');
 if (dontClickBtn) {
   dontClickBtn.addEventListener('click', () => {
+    // Visual danger nudge
+    dontClickBtn.animate([
+      { transform:'translateX(-50%) scale(1)', filter:'contrast(1)' },
+      { transform:'translateX(-50%) scale(1.08)', filter:'contrast(1.3)' },
+      { transform:'translateX(-50%) scale(1)', filter:'contrast(1)' }
+    ], { duration: 320, easing:'cubic-bezier(.3,.7,.2,1)' });
+    // Original action
     window.open('./Pages/dontClick.htm', '_blank', 'noopener,noreferrer');
   });
 }
@@ -74,18 +81,39 @@ if (volumeSlider && backgroundMusic) {
   });
 }
 
+/* ----------------------------
+   Seamless video loop fade
+----------------------------- */
+const bgVideo = document.getElementById('backgroundVideo');
+if (bgVideo) {
+  const fade = ()=> {
+    bgVideo.classList.add('fade-restart');
+    setTimeout(()=> {
+      bgVideo.currentTime = 0.05;
+      bgVideo.play().catch(()=>{});
+      bgVideo.classList.remove('fade-restart');
+    }, 120);
+  };
+  bgVideo.addEventListener('ended', (e)=> { e.preventDefault(); fade(); });
+}
+
+/* ----------------------------
+   Live counter (local visits or Firebase-ready)
+----------------------------- */
+const viewsEl = document.getElementById('viewsCounter');
+if (viewsEl) {
+  const total = Number(localStorage.getItem('visits_total') || '0') + 1;
+  localStorage.setItem('visits_total', String(total));
+  viewsEl.textContent = String(total); // replace with Firebase online count if enabled
+}
 
 /* ----------------------------
    Secret modal gate (SHA-256)
 ----------------------------- */
-
-// SHA-256 helper using Web Crypto API
 async function sha256Hex(str) {
   const enc = new TextEncoder().encode(str);
   const buf = await crypto.subtle.digest('SHA-256', enc);
-  return Array.from(new Uint8Array(buf))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 // IMPORTANT: set to the SHA-256 of the plain password (not the hash itself)
@@ -98,7 +126,7 @@ const pwSubmit = document.getElementById('pwSubmit');
 const pwCancel = document.getElementById('pwCancel');
 const pwError = document.getElementById('pwError');
 
-// Open the password modal
+// Open modal
 if (openSecret && pwModal) {
   openSecret.addEventListener('click', () => {
     pwModal.classList.add('show');
@@ -113,40 +141,32 @@ if (openSecret && pwModal) {
   });
 }
 
-// Cancel / close modal
+// Cancel / close
 if (pwCancel && pwModal) {
   pwCancel.addEventListener('click', () => {
     pwModal.classList.remove('show');
   });
 }
 
-// Version marker — confirm in DevTools after reload
-console.log('script.js version=2025-09-25T00:05Z SECRET_HASH=', SECRET_HASH);
+// Version marker
+console.log('script.js version=2025-09-25T20:45Z SECRET_HASH=', SECRET_HASH);
 
-// Submit and verify password (accept plain text or 64-char hex)
+// Submit and verify (accept plain or hex)
 if (pwSubmit && pwModal && pwInput) {
   pwSubmit.addEventListener('click', async () => {
     let guess = (pwInput.value || '');
-    // Trim only leading/trailing whitespace
     guess = guess.replace(/^\s+|\s+$/g, '');
-
     if (!guess) {
       if (pwError) pwError.textContent = 'Enter a password.';
       return;
     }
-
-    // If the user pasted a SHA-256 hex, use it directly; else hash the plain text
     let attempt;
     if (/^[0-9a-f]{64}$/i.test(guess)) {
       attempt = guess.toLowerCase();
     } else {
       attempt = (await sha256Hex(guess)).toLowerCase();
     }
-
     const target = (SECRET_HASH || '').toLowerCase();
-
-    // Debug once if needed:
-    // console.log('PW DEBUG → attempt:', attempt, 'target:', target);
 
     if (attempt === target) {
       window.location.href = './Pages/83974b9e12373ca84ce7431c7e6e0d92b047bf590da77c80f63e34886344ea5b.html';
@@ -161,7 +181,6 @@ if (pwSubmit && pwModal && pwInput) {
     }
   });
 
-  // Enter key submits
   pwInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') pwSubmit.click();
   });
