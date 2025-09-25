@@ -29,25 +29,33 @@
 
     <!-- Background music (unchanged path) -->
     <audio id="backgroundMusic" loop muted playsinline>
-      <source src="music.mp3" type="audio/mpeg" />
+      <source src="home.mp3" type="audio/mpeg" />
     </audio>
 
-    <!-- Top neon text: now a button so it can open a new tab -->
+    <!-- Top neon text -->
     <button class="glowing-text" id="dontClick" type="button">DON’T CLICK</button>
 
-    <!-- Profile Card (unchanged layout) -->
-    <div class="profile-card">
-      <img src="Images/Avatar.jpg" alt="Avatar" />
-      <h1>KEILNK</h1>
+    <!-- Profile Card -->
 
-      <!-- Redirect Buttons (Soon.. removed) -->
+
+    <div class="profile-card">
+      <div class="avatar-row">
+  <img src="Images/Avatar.jpg" alt="Avatar" class="avatar-pic" />
+        <h1>KEILNK</h1>
+  <div class="marquee" aria-label="Welcome message">
+    <div class="marquee-track">Welcome to my world • Welcome to my world • Welcome to my world • </div>
+  </div>
+</div>
+
+      <!-- Redirect Buttons -->
       <div class="button-container">
         <button class="redirect-button" data-href="Pages/games.html" style="background-color:#fffb00;color:#000;">Games</button>
         <button class="redirect-button" data-href="Pages/scripts.html" style="background-color:#008CBA;color:#000;">Scripts</button>
         <button class="redirect-button" data-href="Pages/minecraft.html" style="background-color:#29f700;color:#000;">Minecraft</button>
+        <button class="redirect-button" id="openSecret" style="background-color:#ff3b30;color:#fff;">Secret</button>
       </div>
 
-      <!-- Volume Control (unchanged) -->
+      <!-- Volume Control -->
       <div class="button-container" style="margin-top:10px;">
         <button class="volume-control" id="muteButton">Mute</button>
         <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" />
@@ -58,21 +66,34 @@
         <img class="location-gif" src="Images/syria-flag.gif" alt="Syria Flag GIF" style="width:40px;height:40px;" />
       </p>
 
-      <!-- Social Media Icons (TikTok removed, others unchanged) -->
+      <!-- Social Media Icons -->
       <div class="icon-container">
-        <a href="https://discord.gg/https://discord.gg/zEaFQHGTwg" target="_blank" rel="noopener">
+        <a href="https://discord.gg/F5E5Ks26Bv" target="_blank" rel="noopener">
           <img src="Images/Logos/Discord.png" alt="Discord" style="width:40px;height:40px;" />
         </a>
-        <a href="https://www.youtube.com/@keilnk" target="_blank" rel="noopener">
+        <a href="https://www.youtube.com/@t_r0q" target="_blank" rel="noopener">
           <img src="Images/Logos/Youtube.png" alt="YouTube" style="width:40px;height:40px;" />
         </a>
-        <a href="https://www.instagram.com/" target="_blank" rel="noopener">
+        <a href="https://www.instagram.com/hkxgr?igsh=MWZqYTU2NW1xcXlhYQ==" target="_blank" rel="noopener">
           <img src="Images/Logos/instagram-iconjpg.jpg" alt="Instagram" style="width:40px;height:40px;" />
         </a>
       </div>
 
-      <!-- Views (unchanged) -->
       <div class="views-counter" id="viewsCounter">👁️ ♾️</div>
     </div>
+
+    <!-- Password modal -->
+    <div id="pwModal" class="pw-overlay" aria-hidden="true">
+      <div class="pw-card" role="dialog" aria-labelledby="pwTitle" aria-modal="true">
+        <h3 id="pwTitle">Enter password</h3>
+        <input id="pwInput" type="password" placeholder="Password" autocomplete="current-password" />
+        <div class="pw-actions">
+          <button id="pwSubmit">Enter</button>
+          <button id="pwCancel">Cancel</button>
+        </div>
+        <p id="pwError" class="pw-error" aria-live="polite"></p>
+      </div>
+    </div>
+
   </body>
 </html>

@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="de" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geheime Seite — Für uns</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+      :root{
+        --bg1:#0b1220; --bg2:#1a0f1f; --bg3:#231a36;
+        --accent:#ff6aa2; --accent2:#ffd1dc; --text:#fff;
+        --pill: rgba(0,0,0,.45);
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{margin:0;background:#0b1220;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden}
+
+      .gradient{
+        position:fixed; inset:0; z-index:-2;
+        background:
+          radial-gradient(1200px 800px at 10% 20%, rgba(255,106,162,.25), transparent 60%),
+          radial-gradient(900px 700px at 80% 10%, rgba(255,209,220,.18), transparent 60%),
+          radial-gradient(1000px 900px at 50% 90%, rgba(180,120,255,.18), transparent 60%),
+          linear-gradient(135deg, var(--bg1), var(--bg2) 50%, var(--bg3));
+        animation: hue 18s ease-in-out infinite alternate;
+      }
+      @keyframes hue{ from{ filter:hue-rotate(0deg) } to{ filter:hue-rotate(25deg) } }
+
+      .hearts{ position:fixed; inset:0; pointer-events:none; z-index:-1; overflow:hidden }
+      .heart{
+        position:absolute; font-size:18px; color:var(--accent); opacity:.25;
+        animation: rise 14s linear infinite;
+      }
+      @keyframes rise{
+        from{ transform: translateY(20vh) translateX(0) scale(.8); opacity:0 }
+        20%{ opacity:.35 }
+        to{ transform: translateY(-110vh) translateX(40px) scale(1.2); opacity:0 }
+      }
+
+      .wrap{ min-height:100dvh; display:grid; place-items:center; padding:24px }
+      .card{
+        width:min(980px,100%);
+        backdrop-filter: blur(10px) saturate(1.05);
+        background: rgba(10,10,20,.35);
+        border:1px solid rgba(255,255,255,.12);
+        border-radius:22px; padding:28px 24px;
+        box-shadow: 0 24px 60px rgba(0,0,0,.45);
+      }
+
+      .title{ font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(2rem,4.8vw,3.2rem); margin:0 0 6px }
+      .subtitle{ margin:0 0 18px; color:#e8e8f2 }
+      .accent{ color:var(--accent2) }
+
+      .photo{
+        width:120px;height:120px;border-radius:50%;object-fit:cover;margin:6px auto 12px;display:block;
+        border:2px solid rgba(255,255,255,.35); box-shadow:0 10px 30px rgba(0,0,0,.35)
+      }
+
+      .poem{ margin-top:16px; border-top:1px solid rgba(255,255,255,.12); padding-top:16px; display:grid; gap:12px }
+      .poem h3{ margin:0; font-family:'Playfair Display',serif }
+      .poem-rtl{
+        direction:rtl; text-align:right; font-family:'Cairo', system-ui, sans-serif;
+        font-size:clamp(1.15rem,2.3vw,1.6rem); line-height:2.05; color:#fff; white-space:pre-line;
+      }
+      .poem-de{
+        direction:ltr; text-align:left;
+        font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+        font-size:clamp(1.05rem,2.0vw,1.4rem); line-height:1.95; color:#fff; white-space:pre-line;
+      }
+
+      .footer{ margin-top:18px; font-size:.95rem; color:#f0e9f4; text-align:center }
+      .btns{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px }
+      .btn{
+        border:none; border-radius:999px; padding:10px 16px; cursor:pointer;
+        background:linear-gradient(135deg, var(--accent), #ff84b4);
+        color:#1e1e2a; font-weight:700; box-shadow:0 8px 28px rgba(255,106,162,.25);
+      }
+      .btn.alt{ background:transparent; color:#fff; border:1px solid rgba(255,255,255,.3) }
+      .lang-switch{ display:flex; gap:10px; justify-content:center; margin:8px 0 0 }
+
+      /* Musik-Player */
+      .player{
+        position:fixed; right:16px; bottom:16px; z-index:5;
+        display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+        background:var(--pill); backdrop-filter: blur(8px);
+        border:1px solid rgba(255,255,255,.25);
+        border-radius:16px; padding:8px 10px; min-width:260px;
+      }
+      .player .title{ font-size:1rem; margin:0; font-family:system-ui, sans-serif }
+      .player button, .player input[type="range"]{ accent-color:#ff6aa2; }
+      .player .row{ display:flex; align-items:center; gap:8px; width:100% }
+      .player .controls button{
+        background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35);
+        padding:6px 10px; border-radius:10px; cursor:pointer;
+      }
+      .player .time{ font-size:.85rem; opacity:.9; margin-left:auto }
+      .player .scrub{ width:100% }
+      .vol-wrap{ display:flex; align-items:center; gap:6px; margin-left:auto }
+      .vol-wrap input{ width:110px }
+      @media (max-width:520px){
+        .player{ right:10px; bottom:10px }
+        .vol-wrap input{ width:90px }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gradient"></div>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="wrap">
+      <div class="card">
+        <img class="photo" src="../Images/Avatar.jpg" alt="Wir" />
+        <h1 class="title">Für <span class="accent">unsere</span> Momente</h1>
+        <p class="subtitle">Ein kleiner, geheimer Platz — nur für dich und mich.</p>
+
+        <div class="lang-switch" role="group" aria-label="Sprachwahl">
+          <button id="btnAr" class="btn" aria-pressed="false">Arabisch</button>
+          <button id="btnDe" class="btn alt" aria-pressed="true">Deutsch</button>
+        </div>
+
+        <div id="poemBox" class="poem" lang="de" dir="ltr">
+          <h3 id="poemHeader">Gedicht</h3>
+
+          <!-- Arabisch -->
+          <div id="poemAr" class="poem-rtl" style="display:none">
+أَمُدُّ لَكِ قَلبي جِسرًا إذا ضاقَ العالَمُ مِن حَولِكِ،
+وَعِندَ عَينيَّ بَحرٌ يَهدَأُ فيه كُلُّ تَعبٍ.
+إِن قُلتِ: أُحِبُّكَ، صارتِ اللّيلةُ صُبحًا،
+وتَعَلَّمَتِ النُّجومُ كِتابةَ اسمِكِ على السَّماء.
+
+هَلُمّي، نَعُدُّ مَعًا نَبَضاتِنا حتّى يَنعَسَ القَمر،
+ونُخبِرُ الرِّيحَ أنّ الطَّريقَ إلينا يُفتَحُ بالقُبَل.
+إذا ضِعتُ يومًا، فَنُورُ يَدَيكِ خارِطَتي،
+وَصَوتُكِ نهرٌ يُبَلِّلُ صَحراءَ روحي.
+
+مَعَكِ، يَصيرُ كُلُّ ظِلٍّ جَنَّة،
+وَتُزهِرُ في صُدوري حدائِقُ من أَسرارِ العِطر.
+لا أُريدُ مِن الدُّنيا إلّا اتِّساعَ حُلمِكِ،
+ولا مِن اللَّيلِ إلّا سَكينةَ كتِفَيكِ.
+
+حينَ تَغيبينَ، تَتأخَّرُ الساعاتُ في المَشي،
+ويُصبِحُ الطَّريقُ بلا أغاني، والنافذةُ بلا قمر.
+وحينَ تَعودين، تُصفِّقُ الأشجارُ بالنسيم،
+ويهتفُ قلبي: هذا الوطن.
+
+ضَعي يَدَكِ هنا — فوق صمتي —
+سَتَسمعينَ حُقُولًا مِن ضوءٍ تنبُتُ باسمِكِ،
+وسَتَرينَ في دمي ليلًا يَسيلُ عِطرًا
+إذا ابتَسَمتِ… يَكفي ابتسامُكِ لأزهر.
+          </div>
+
+          <!-- Deutsch -->
+          <div id="poemDe" class="poem-de">
+Ich lege mein Herz dir als Brücke hin, wenn die Welt sich um dich verengt,
+und in meinen Augen ruht ein Meer, das jede Mühe sanft beruhigt.
+Wenn du sagst: „Ich liebe dich“, wird die Nacht zum Morgen,
+und die Sterne lernen, deinen Namen an den Himmel zu schreiben.
+
+Komm, wir zählen unsere Pulsschläge, bis der Mond schläfrig wird,
+und sagen dem Wind: Der Weg zu uns öffnet sich durch Küsse.
+Sollte ich mich je verirren, sind deine Hände meine Karte,
+und deine Stimme ein Fluss, der meine Wüste tränkt.
+
+Mit dir wird jeder Schatten zum Garten,
+und in meiner Brust blühen geheimnisvolle Düfte.
+Von der Welt will ich nichts als die Weite deiner Träume,
+und von der Nacht nur die Ruhe deiner Schultern.
+
+Wenn du fern bist, gehen die Stunden langsamer,
+die Wege verlieren ihre Lieder, das Fenster seinen Mond.
+Wenn du zurückkehrst, klatschen die Bäume im Wind,
+und mein Herz ruft: „Hier ist Heimat.“
+
+Leg deine Hand hierher — auf mein Schweigen —
+du wirst Felder aus Licht hören, die deinen Namen wachsen lassen,
+und in meinem Blut siehst du eine Nacht, die nach Duft fließt;
+wenn du lächelst … genügt dein Lächeln, damit ich erblühe.
+          </div>
+        </div>
+
+        <div class="btns">
+          <a id="backLink" class="btn alt" href="../index.html">Zurück zur Startseite</a>
+        </div>
+
+        <p class="footer" id="footerNote">Mit Liebe gemacht — für dich.</p>
+      </div>
+    </div>
+
+    <!-- Musik -->
+    <audio id="playerAudio" preload="auto"></audio>
+
+    <div class="player" role="region" aria-label="Musik-Player">
+      <div class="row">
+        <strong id="trackTitle" class="title">Song 1</strong>
+        <span id="timeInfo" class="time">0:00 / 0:00</span>
+      </div>
+      <input id="scrub" class="scrub" type="range" min="0" max="100" value="0" step="0.1" aria-label="Position">
+      <div class="row controls">
+        <button id="prevBtn" aria-label="Vorheriger Song">⏮️</button>
+        <button id="playBtn" aria-label="Play/Pause">▶️</button>
+        <button id="nextBtn" aria-label="Nächster Song">⏭️</button>
+        <button id="muteBtn" aria-label="Stumm schalten">🔈</button>
+        <div class="vol-wrap">
+          <span>🔊</span>
+          <input id="vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Lautstärke">
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Hearts
+      const hearts = document.getElementById('hearts');
+      const emojis = ['❤','🩷','💖','💕','💞'];
+      function spawnHeart(){
+        const span = document.createElement('span');
+        span.className = 'heart';
+        span.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        span.style.left = Math.random()*100 + 'vw';
+        span.style.animationDuration = (10 + Math.random()*10) + 's';
+        span.style.fontSize = (14 + Math.random()*18) + 'px';
+        hearts.appendChild(span);
+        setTimeout(()=>span.remove(), 16000);
+      }
+      setInterval(spawnHeart, 700);
+      for(let i=0;i<12;i++) spawnHeart();
+
+      // Audio + Playlist (VOR i18n/applyLang)
+      const audio = document.getElementById('playerAudio');
+      const trackTitle = document.getElementById('trackTitle');
+      const tracks = [
+        { src: '../Music/song1.mp3', titleDe:'Song 1', titleAr:'أغنية 1' },
+        { src: '../Music/song2.mp3', titleDe:'Song 2', titleAr:'أغنية 2' },
+        { src: '../Music/song3.mp3', titleDe:'Song 3', titleAr:'أغنية 3' }
+      ];
+      let currentIndex = 0;
+
+      // UI Referenzen
+      const btnAr = document.getElementById('btnAr');
+      const btnDe = document.getElementById('btnDe');
+      const poemBox = document.getElementById('poemBox');
+      const poemAr = document.getElementById('poemAr');
+      const poemDe = document.getElementById('poemDe');
+      const titleEl = document.querySelector('.title');
+      const subtitleEl = document.querySelector('.subtitle');
+      const backLink = document.getElementById('backLink');
+      const poemHeader = document.getElementById('poemHeader');
+      const footerNote = document.getElementById('footerNote');
+
+      // i18n
+      const i18n = {
+        de: {
+          htmlLang:'de', htmlDir:'ltr',
+          title:'Für <span class="accent">unsere</span> Momente',
+          subtitle:'Ein kleiner, geheimer Platz — nur für dich und mich.',
+          poemHeader:'Gedicht',
+          back:'Zurück zur Startseite',
+          footer:'Mit Liebe gemacht — für dich.',
+          btnAr:'Arabisch', btnDe:'Deutsch',
+          songs:['Song 1','Song 2','Song 3']
+        },
+        ar: {
+          htmlLang:'ar', htmlDir:'rtl',
+          title:'لِ<span class="accent">لحظاتِنا</span>',
+          subtitle:'مكانٌ صغيرٌ وسِرّي — ليكونَ لكِ و لي.',
+          poemHeader:'قصيدة',
+          back:'العودة إلى الصفحة الرئيسية',
+          footer:'صُنِعَ بحُبّ — لأجلكِ.',
+          btnAr:'العربية', btnDe:'الألمانية',
+          songs:['أغنية 1','أغنية 2','أغنية 3']
+        }
+      };
+
+      function applyLang(lang){
+        const t = i18n[lang] || i18n.de;
+        document.documentElement.setAttribute('lang', t.htmlLang);
+        document.documentElement.setAttribute('dir',  t.htmlDir);
+        btnAr.setAttribute('aria-pressed', String(lang==='ar'));
+        btnDe.setAttribute('aria-pressed', String(lang==='de'));
+        titleEl.innerHTML      = t.title;
+        subtitleEl.textContent = t.subtitle;
+        poemHeader.textContent = t.poemHeader;
+        backLink.textContent   = t.back;
+        footerNote.textContent = t.footer;
+        btnAr.textContent      = t.btnAr;
+        btnDe.textContent      = t.btnDe;
+        // Gedichte
+        poemAr.style.display = (lang==='ar') ? '' : 'none';
+        poemDe.style.display = (lang==='de') ? '' : 'none';
+        // Tracktitel sicher setzen
+        if (trackTitle) {
+          const label = (t.htmlLang==='ar')
+            ? (tracks[currentIndex]?.titleAr || t.songs[currentIndex] || t.songs[0] || '—')
+            : (tracks[currentIndex]?.titleDe || t.songs[currentIndex] || t.songs[0] || '—');
+          trackTitle.textContent = label;
+        }
+        localStorage.setItem('site_lang', lang);
+      }
+      btnAr.addEventListener('click', ()=> applyLang('ar'));
+      btnDe.addEventListener('click', ()=> applyLang('de'));
+      applyLang(localStorage.getItem('site_lang') || 'de');
+
+      // Player-Steuerung
+      const playBtn = document.getElementById('playBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const vol = document.getElementById('vol');
+      const muteBtn = document.getElementById('muteBtn');
+      const scrub = document.getElementById('scrub');
+      const timeInfo = document.getElementById('timeInfo');
+
+      function currentLocale(){
+        return document.documentElement.getAttribute('lang') === 'ar' ? 'ar' : 'de';
+      }
+      function fmt(t){
+        if(!isFinite(t)) return '0:00';
+        const m = Math.floor(t/60); const s = Math.floor(t%60);
+        return m + ':' + String(s).padStart(2,'0');
+      }
+      function loadTrack(i){
+        currentIndex = (i + tracks.length) % tracks.length;
+        audio.src = tracks[currentIndex].src;
+        // Titel nach Locale
+        trackTitle.textContent = currentLocale()==='ar' ? tracks[currentIndex].titleAr : tracks[currentIndex].titleDe;
+        audio.load();
+      }
+      function updateTime(){
+        const cur = audio.currentTime || 0;
+        const dur = audio.duration || 0;
+        timeInfo.textContent = fmt(cur) + ' / ' + fmt(dur);
+        scrub.value = dur>0 ? (cur/dur)*100 : 0;
+      }
+
+      // Autoplay-Policy unlock
+      let unlocked = false;
+      function unlock(){ if(!unlocked){ unlocked=true; audio.play().then(()=>audio.pause()).catch(()=>{}); document.removeEventListener('click', unlock); } }
+      document.addEventListener('click', unlock, { once:true });
+
+      // Events
+      playBtn.addEventListener('click', async ()=>{
+        if(audio.paused){ try{ await audio.play(); playBtn.textContent='⏸️'; }catch{} }
+        else{ audio.pause(); playBtn.textContent='▶️'; }
+      });
+      nextBtn.addEventListener('click', async ()=>{
+        loadTrack(currentIndex+1);
+        try{ await audio.play(); playBtn.textContent='⏸️'; }catch{}
+      });
+      prevBtn.addEventListener('click', async ()=>{
+        loadTrack(currentIndex-1);
+        try{ await audio.play(); playBtn.textContent='⏸️'; }catch{}
+      });
+      vol.addEventListener('input', ()=>{ audio.volume = Number(vol.value); });
+      muteBtn.addEventListener('click', ()=>{
+        audio.muted = !audio.muted;
+        muteBtn.textContent = audio.muted ? '🔇' : '🔈';
+      });
+      scrub.addEventListener('input', ()=>{
+        if(isFinite(audio.duration)){
+          audio.currentTime = (Number(scrub.value)/100) * audio.duration;
+        }
+      });
+      audio.addEventListener('timeupdate', updateTime);
+      audio.addEventListener('loadedmetadata', updateTime);
+      audio.addEventListener('ended', ()=> nextBtn.click());
+
+      // Initial
+      loadTrack(0);
+      updateTime();
+    </script>
+  </body>
+</html>
